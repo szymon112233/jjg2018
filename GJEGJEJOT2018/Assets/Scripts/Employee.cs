@@ -2,10 +2,10 @@
 
 public class Employee : MonoBehaviour {
 
-    protected Ability programing;
-    protected Ability musicSpeed;
-    protected Ability artSpeed;
-    protected Ability testSpeed;
+    [SerializeField] protected Ability programingSpeed;
+    [SerializeField] protected Ability musicSpeed;
+    [SerializeField] protected Ability artSpeed;
+    [SerializeField] protected Ability testSpeed;
 
     private Game _game;
 
@@ -23,5 +23,4 @@ public class Employee : MonoBehaviour {
 
     }
 
-    public void SetGame(Game game, )
 }
