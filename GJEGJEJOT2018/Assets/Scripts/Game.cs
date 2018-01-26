@@ -5,8 +5,38 @@ using UnityEngine;
 public class Game : MonoBehaviour {
     public string Name = "Generic Game";
 
-    public float ProgrammingValue = 0f;
-    public float MusicValue = 0f;
-    public float ArtValue = 0f;
-    public float TestValue = 0f;
+    private Task Programming;
+    private Task Music;
+    private Task Art;
+    private Task Testing;
+
+    private void Awake()
+    {
+        Build();
+    }
+
+    private void Build()
+    {
+        int percentLeft = 100;
+
+        int nextpercent = Random.Range(0, percentLeft + 1);
+        Programming = new Task(nextpercent);
+        percentLeft -= nextpercent;
+
+        nextpercent = Random.Range(0, percentLeft + 1);
+        Testing = new Task(nextpercent);
+        percentLeft -= nextpercent;
+
+        nextpercent = Random.Range(0, percentLeft + 1);
+        Art = new Task(nextpercent);
+        percentLeft -= nextpercent;
+
+        nextpercent = percentLeft;
+        Music = new Task(nextpercent);
+    }
+
+    public void WorkOn()
+    {
+
+    }
 }
