@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public const string tagName = "Game Box";
+
     public string Name = "Generic Game";
 
     private Task Programming;
@@ -12,6 +14,12 @@ public class Game : MonoBehaviour
     private Task Testing;
 
     private Task currTask;
+    private TaskEnum currTaskInfo = TaskEnum.PROGRAMMING;
+
+    public TaskEnum CurrTask
+    {
+        get { return currTaskInfo; }
+    }
 
     private void Awake()
     {
@@ -36,12 +44,19 @@ public class Game : MonoBehaviour
 
         nextpercent = percentLeft;
         Music = new Task(nextpercent);
+
+        currTask = Programming;
     }
 
-    public void WorkOn(TaskEnum task, float speed)
+    public void WorkOn(float speed)
     {
-        currTask = GetTask(task);
         currTask.LowerPercent(speed);
+    }
+
+    public void SwitchTask()
+    {
+        currTaskInfo = (TaskEnum)(((int)currTaskInfo + 1) % ((int)TaskEnum.TESTING + 1));
+        currTask = GetTask(currTaskInfo);
     }
 
     private Task GetTask(TaskEnum task)
