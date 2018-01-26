@@ -21,7 +21,7 @@ public class Employee : MonoBehaviour {
 
     protected virtual void WorkOnGame()
     {
-
+        _game.WorkOn(_gameTask, _currAbility.Value);
     }
 
     public virtual void Build()
@@ -50,13 +50,13 @@ public class Employee : MonoBehaviour {
         switch (task)
         {
             case TaskEnum.ART:
-                return art;
+                return this.art;
             case TaskEnum.MUSIC:
-                return music;
+                return this.music;
             case TaskEnum.PROGRAMMING:
-                return programming;
+                return this.programming;
             case TaskEnum.TESTING:
-                 return testing;
+                 return this.testing;
             default:
                 return new Ability();
         }

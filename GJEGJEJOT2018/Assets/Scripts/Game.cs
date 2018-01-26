@@ -2,13 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : MonoBehaviour {
+public class Game : MonoBehaviour
+{
     public string Name = "Generic Game";
 
     private Task Programming;
     private Task Music;
     private Task Art;
     private Task Testing;
+
+    private Task currTask;
 
     private void Awake()
     {
@@ -35,8 +38,27 @@ public class Game : MonoBehaviour {
         Music = new Task(nextpercent);
     }
 
-    public void WorkOn()
+    public void WorkOn(TaskEnum task, float speed)
     {
-
+        currTask = GetTask(task);
+        currTask.LowerPercent(speed);
     }
+
+    private Task GetTask(TaskEnum task)
+    {
+        switch (task)
+        {
+            case TaskEnum.ART:
+                return this.Art;
+            case TaskEnum.MUSIC:
+                return this.Music;
+            case TaskEnum.PROGRAMMING:
+                return this.Programming;
+            case TaskEnum.TESTING:
+                return this.Testing;
+            default:
+                return new Task(0);
+        }
+    }
+
 }
