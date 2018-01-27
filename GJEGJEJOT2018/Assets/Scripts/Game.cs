@@ -102,7 +102,7 @@ public class Game : MonoBehaviour
 		material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));
 		Name = Names[Random.Range(0, Names.Length)];			}
 
-	public bool WorkOn(float speed, EmployeeBar progressBar)
+	public bool WorkOn(float speed, ProgressBar progressBar)
 	{
 		currTask.LowerPercent(speed);
 		progressBar.ChangeColor(CurrTask);
