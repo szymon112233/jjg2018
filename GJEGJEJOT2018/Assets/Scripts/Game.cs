@@ -12,12 +12,11 @@ public class Game : MonoBehaviour
     public Task Music;
     public Task Art;
     public Task Testing;
-
     public Color Color;
 
 	private Task currTask;
 	private Rigidbody rigidBody;
-	private TaskEnum currTaskInfo = TaskEnum.PROGRAMMING;
+	public TaskEnum currTaskInfo = TaskEnum.PROGRAMMING;
 
 	public TaskEnum CurrTask
 	{
@@ -66,12 +65,11 @@ public class Game : MonoBehaviour
         return currTask.IsEnded();
 	}
 
-	public TaskEnum SwitchTask()
+	public void SwitchTask()
 	{
 		currTaskInfo = (TaskEnum)(((int)currTaskInfo + 1) % ((int)TaskEnum.TESTING + 1));
 		currTask = GetTask(currTaskInfo);
 		Debug.Log("SWITCHING TASK TO: " + currTaskInfo);
-        return currTaskInfo;
 	}
 
 	private Task GetTask(TaskEnum task)
