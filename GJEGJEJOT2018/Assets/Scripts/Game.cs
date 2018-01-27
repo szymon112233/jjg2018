@@ -15,7 +15,7 @@ public class Game : MonoBehaviour
 			"TransCraft 5.9",
 			"CyberTrans 2077",
 			"The Witcher 4: Wild Trans",
-			"Player"
+			"Transnite"
 		};
 	public const string tagName = "Game Box";
     private const float minRevenue = 10000f;
