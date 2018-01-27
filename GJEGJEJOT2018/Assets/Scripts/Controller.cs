@@ -61,6 +61,7 @@ public class Controller : MonoBehaviour
 			return;
 		socketAttacher.AttachToGameSocket(currGame, false);
 		animator.SetBool("HasBox", true);
+		animator.ResetTrigger("Throw");
 	}
 
 	// Update is called once per frame
@@ -77,7 +78,8 @@ public class Controller : MonoBehaviour
 	{
 		if (Input.GetButtonDown("Fire1"))
 		{
-			animator.SetTrigger("Throw");
+			if (currGame != null)
+				animator.SetTrigger("Throw");
 		}
 	}
 
