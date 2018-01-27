@@ -23,7 +23,7 @@ public class Employee : MonoBehaviour {
 
     protected virtual void WorkOnGame()
     {
-        _game.WorkOn(_currAbility.Value);
+        _game.WorkOn(_currAbility.Value, bars.progressBar);
     }
 
     public virtual void Build()

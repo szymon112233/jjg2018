@@ -53,9 +53,11 @@ public class Game : MonoBehaviour
 		gameObject.GetComponent<Renderer>().material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
 	}
 
-	public void WorkOn(float speed)
+	public void WorkOn(float speed, EmployeeBar progressBar)
 	{
 		currTask.LowerPercent(speed);
+        progressBar.ChangeColor(CurrTask);
+        progressBar.ChangeValue(currTask.percent);
 	}
 
 	public void SwitchTask()
