@@ -11,6 +11,7 @@ public class Controller : MonoBehaviour
 	private Game currGame;
 	private SocketAttacher socketAttacher;
 	private Animator animator;
+	private bool move = true;
 
 	// Use this for initialization
 	void Start()
@@ -32,7 +33,7 @@ public class Controller : MonoBehaviour
 		AttachGame();
 	}
 
-	private void OnThrowEnd()
+	private void OnThrowApex()
 	{
 		var game = DetachGame();
 		if (game != null)
@@ -43,6 +44,11 @@ public class Controller : MonoBehaviour
 				rigid.velocity = ThrowSpeed * transform.localToWorldMatrix.MultiplyVector(Vector3.forward + Vector3.down * 0.2f);
 			}
 		}
+	}
+
+	private void OnEnableMovement()
+	{
+		move = true;
 	}
 
 	private Game DetachGame()
@@ -81,12 +87,17 @@ public class Controller : MonoBehaviour
 		if (Input.GetButtonDown("Fire1"))
 		{
 			if (currGame != null)
+			{
 				animator.SetTrigger("Throw");
+				move = false;
+			}
 		}
 	}
 
 	private void Move()
 	{
+		if (!move)
+			return;
 		float x = Input.GetAxis("Horizontal");
 		float y = Input.GetAxis("Vertical");
 		Vector3 moveVector = new Vector3(x, 0, y);

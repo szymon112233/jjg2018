@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class Task
 {
-    private const float speedModifier = .3f;
+    private const float speedModifier = .03f;
 
     public float percent;
 
