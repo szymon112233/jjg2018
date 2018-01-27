@@ -48,5 +48,7 @@ public class
 	public void OnGameShipped()
 	{
 		CurrentGames--;
+		if (CurrentGames == MaxGames - 1)
+			ElapsedTime = 0;
 	}
 }
