@@ -18,14 +18,14 @@ public class FancyRotator : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
 		elapsedTime += Time.deltaTime;
-		transform.position = startLocation + Vector3.up * PositionAmplitude * (1 + Mathf.Sin(elapsedTime*(Mathf.PI *2) / PositionPeriod));
+		transform.localPosition = startLocation + Vector3.up * PositionAmplitude * (1 + Mathf.Sin(elapsedTime*(Mathf.PI *2) / PositionPeriod));
 		transform.Rotate(0,AngularAmplitude* Mathf.Sin(elapsedTime / AngularVelocityPeriod *(Mathf.PI *2)), 0);
 	}
 
 	private void OnEnable()
 	{
 		elapsedTime = 0;
-		startLocation = transform.position;
+		startLocation = transform.localPosition;
 		var rigid = GetComponent<Rigidbody>();
 		if(rigid != null)
 		{
@@ -37,7 +37,7 @@ public class FancyRotator : MonoBehaviour
 
 	private void OnDisable()
 	{
-		transform.position = startLocation;
+		transform.localPosition = startLocation;
 		var rigid = GetComponent<Rigidbody>();
 		if (rigid != null)
 		{

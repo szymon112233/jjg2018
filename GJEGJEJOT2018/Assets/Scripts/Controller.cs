@@ -40,8 +40,9 @@ public class Controller : MonoBehaviour
 		rigid.useGravity = false;
 		rigid.detectCollisions = false;
 		body.transform.SetParent(gameSocket.transform);
-		body.transform.rotation = Quaternion.identity;
+		body.transform.localRotation = Quaternion.identity;
 		rigid.velocity = rigid.angularVelocity = body.transform.localPosition = Vector3.zero;
+		body.GetComponent<FancyRotator>().enabled = true;
 	}
 
 	private GameObject DetachGame()
@@ -49,6 +50,7 @@ public class Controller : MonoBehaviour
 		if (gameSocket.transform.childCount == 0)
 			return null;
 		var child = gameSocket.transform.GetChild(0).gameObject;
+		child.GetComponent<FancyRotator>().enabled = false;
 		var rigid = child.GetComponent<Rigidbody>();
 		rigid.detectCollisions = true;
 		rigid.useGravity = true;
