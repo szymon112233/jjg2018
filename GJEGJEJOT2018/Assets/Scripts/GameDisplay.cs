@@ -31,10 +31,10 @@ public class GameDisplay : MonoBehaviour
         Canvas.enabled = true;
         GameTitle.text = name;
         GameTitle.color = color;
-        ProgrammingBar.value = programming;
-        ArtBar.value = art;
-        MusicBar.value = music;
-        TestingBar.value = testing;
+        SetBarFill(ProgrammingBar, programming);
+        SetBarFill(ArtBar, art);
+        SetBarFill(MusicBar, music);
+        SetBarFill(TestingBar, testing);
     }
 
     public void SetTask(TaskEnum currentTask)
@@ -64,6 +64,16 @@ public class GameDisplay : MonoBehaviour
     public void CloseGameDisplay()
     {
         Canvas.enabled = false;
+    }
+
+    private void SetBarFill(Slider bar, float fill)
+    {
+        if (fill == 0f) bar.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().enabled = false;
+        else
+        {
+            bar.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().enabled = true;
+            bar.value = fill;
+        }
     }
 
     private void SetBarColor(Slider slider, Color color)

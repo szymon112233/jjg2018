@@ -25,7 +25,7 @@ public class GameShippedDisplay : MonoBehaviour
         GameTitle.text = title + " has been shipped!";
         GameTitle.color = color;
         GameScore.text = "Critics say: " + criticsMessage;
-        EarnedMoney.text = "We made " + earnedMoney + " bucks!";
+        EarnedMoney.text = "We made " + (int)earnedMoney + " bucks!";
 
         StartCoroutine(ShowDisplay());
     }
@@ -38,7 +38,7 @@ public class GameShippedDisplay : MonoBehaviour
         GameTitle.text = title + " has been shipped!";
         GameTitle.color = color;
         GameScore.text = "Critics say: " + criticsMessage;
-        EarnedMoney.text = "We made just $" + earnedMoney + ". Welp. Maybe next time";
+        EarnedMoney.text = "We made just $" + (int)earnedMoney + ". Welp. Maybe next time";
 
         StartCoroutine(ShowDisplay());
     }
