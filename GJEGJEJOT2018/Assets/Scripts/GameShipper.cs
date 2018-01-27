@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameShipper : MonoBehaviour {
-    public GameShippedDisplay GameShippedDisplay;
+    private GameShippedDisplay gameShippedDisplay;
     private const float successProbabilityThreshold = .3f;
     private const float minimumSuccessRevenue = 1000f;
 
@@ -16,6 +16,11 @@ public class GameShipper : MonoBehaviour {
         }
     }
 
+    private void Awake()
+    {
+        gameShippedDisplay = GameObject.Find("Game Shipped Display").GetComponent<GameShippedDisplay>();
+    }
+
     private void ShipGame(Game game)
     {
         float successProbability = game.PercentFinished;
@@ -23,7 +28,7 @@ public class GameShipper : MonoBehaviour {
 
         if (successProbability < successProbabilityThreshold)
         {
-            GameShippedDisplay.ShowFailMessage(game.Name, game.Color, game.PercentFinished);
+            gameShippedDisplay.ShowFailMessage(game.Name, game.Color, game.PercentFinished);
             ThrowOut(game);
             return;
         }
@@ -33,8 +38,8 @@ public class GameShipper : MonoBehaviour {
         float revenue = success ? successProbability * possibleRevenue : minimumSuccessRevenue;
         MoneyManager.I.AddMoney(revenue);
 
-        if (success) GameShippedDisplay.ShowSuccessfulShipMessage(game.Name, game.Color, game.PercentFinished, revenue);
-        else GameShippedDisplay.ShowUnsuccessfulShipMessage(game.Name, game.Color, game.PercentFinished, revenue);
+        if (success) gameShippedDisplay.ShowSuccessfulShipMessage(game.Name, game.Color, game.PercentFinished, revenue);
+        else gameShippedDisplay.ShowUnsuccessfulShipMessage(game.Name, game.Color, game.PercentFinished, revenue);
 
         Destroy(game.gameObject);
     }
