@@ -66,11 +66,12 @@ public class Game : MonoBehaviour
         return currTask.IsEnded();
 	}
 
-	public void SwitchTask()
+	public TaskEnum SwitchTask()
 	{
 		currTaskInfo = (TaskEnum)(((int)currTaskInfo + 1) % ((int)TaskEnum.TESTING + 1));
 		currTask = GetTask(currTaskInfo);
 		Debug.Log("SWITCHING TASK TO: " + currTaskInfo);
+        return currTaskInfo;
 	}
 
 	private Task GetTask(TaskEnum task)
