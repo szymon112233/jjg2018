@@ -5,8 +5,8 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
 	public const string tagName = "Game Box";
-    private const float minRevenue = 3000f;
-    private const float maxRevenue = 10000f;
+    private const float minRevenue = 10000f;
+    private const float maxRevenue = 20000f;
 
 	public string Name = "Generic Game";
 
@@ -78,7 +78,8 @@ public class Game : MonoBehaviour
         revenue = Random.Range(minRevenue, maxRevenue);
 		
 		var material = gameObject.GetComponent<Renderer>().material;
-		material.SetColor("_Color",new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)));
+        Color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+        material.SetColor("_Color", Color);
 		material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));	
 	}
 
@@ -121,7 +122,6 @@ public class Game : MonoBehaviour
 		rigidBody.useGravity = false;
 		rigidBody.detectCollisions = false;
 		transform.localRotation = Quaternion.identity;
-		rigidBody.isKinematic = true;
 		rigidBody.velocity = rigidBody.angularVelocity = transform.localPosition = Vector3.zero;
 		GetComponent<FancyRotator>().enabled = useFancyRotator;
 	}
@@ -129,7 +129,6 @@ public class Game : MonoBehaviour
 	public void StartPhysics()
 	{
 		GetComponent<FancyRotator>().enabled = false;
-		rigidBody.isKinematic = false;
 		rigidBody.detectCollisions = true;
 		rigidBody.useGravity = true;
 	}

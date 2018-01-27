@@ -17,7 +17,7 @@ public class GameShippedDisplay : MonoBehaviour
         Canvas.enabled = false;
     }
 
-    public void ShowShipMessage(string title, Color color, float completion, float earnedMoney)
+    public void ShowSuccessfulShipMessage(string title, Color color, float completion, float earnedMoney)
     {
         Canvas.enabled = true;
 
@@ -30,7 +30,20 @@ public class GameShippedDisplay : MonoBehaviour
         StartCoroutine(ShowDisplay());
     }
 
-    public void ShowFailMessage(string title, Color color, float completion, float earnedMoney)
+    public void ShowUnsuccessfulShipMessage(string title, Color color, float completion, float earnedMoney)
+    {
+        Canvas.enabled = true;
+
+        string criticsMessage = RandomizeScoreText(completion);
+        GameTitle.text = title + " has been shipped!";
+        GameTitle.color = color;
+        GameScore.text = "Critics say: " + criticsMessage;
+        EarnedMoney.text = "We made just $" + earnedMoney + ". Welp. Maybe next time";
+
+        StartCoroutine(ShowDisplay());
+    }
+
+    public void ShowFailMessage(string title, Color color, float completion)
     {
         Canvas.enabled = true;
 
@@ -38,7 +51,7 @@ public class GameShippedDisplay : MonoBehaviour
         GameTitle.text = title + " has failed!";
         GameTitle.color = color;
         GameScore.text = "Critics didn't like this one: " + criticsMessage;
-        EarnedMoney.text = "Here's some pity money: $" + earnedMoney;
+        EarnedMoney.text = "We're filled with grief";
 
         StartCoroutine(ShowDisplay());
     }

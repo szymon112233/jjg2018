@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameShipper : MonoBehaviour {
-
+    public GameShippedDisplay GameShippedDisplay;
     private const float successProbabilityThreshold = .3f;
     private const float minimumSuccessRevenue = 1000f;
 
@@ -23,6 +23,7 @@ public class GameShipper : MonoBehaviour {
 
         if (successProbability < successProbabilityThreshold)
         {
+            GameShippedDisplay.ShowFailMessage(game.Name, game.Color, game.PercentFinished);
             ThrowOut(game);
             return;
         }
@@ -31,6 +32,10 @@ public class GameShipper : MonoBehaviour {
         Debug.Log("SHIPPING: success " + success);
         float revenue = success ? successProbability * possibleRevenue : minimumSuccessRevenue;
         MoneyManager.I.AddMoney(revenue);
+
+        if (success) GameShippedDisplay.ShowSuccessfulShipMessage(game.Name, game.Color, game.PercentFinished, revenue);
+        else GameShippedDisplay.ShowUnsuccessfulShipMessage(game.Name, game.Color, game.PercentFinished, revenue);
+
         Destroy(game.gameObject);
     }
 
