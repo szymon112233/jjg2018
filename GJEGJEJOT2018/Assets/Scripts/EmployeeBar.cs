@@ -6,14 +6,15 @@ public class EmployeeBar : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private Image fillBar;
 
-    public void ChangeColor(TaskEnum task)
+    public virtual void ChangeColor(TaskEnum task)
     {
         fillBar.color = Task.GetColor(task);
     }
 
-    public void ChangeValue(float value)
+    public virtual void ChangeValue(float value)
     {
         fillBar.enabled = true;
+        value = Mathf.Clamp01(value);
         slider.value = value;
 
         if (value == 0f)

@@ -8,7 +8,7 @@ public class BarsController : MonoBehaviour {
     public Transform objectToFollow;
     public List<EmployeeBar> bars;
 
-    public EmployeeBar progressBar;
+    public ProgressBar progressBar;
 
     void Update()
     {
