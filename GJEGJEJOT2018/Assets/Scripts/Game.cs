@@ -4,47 +4,59 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+	private static string[] Names =
+		{
+			"FM Souls",
+			"Horizon Zero Reception",
+			"Ethernet Scrolls Online",
+			"Star Waves Battlefront II",
+			"Transmistor",
+			"Portal 2.4",
+			"TransCraft 5.9",
+			"CyberTrans 2077",
+			"The Witcher 4: Wild Trans",
+			"Player"
+		};
 	public const string tagName = "Game Box";
     private const float minRevenue = 10000f;
     private const float maxRevenue = 20000f;
 
-	public string Name = "Generic Game";
+	public string Name;
 
 	public Task Programming;
-    public Task Music;
-    public Task Art;
-    public Task Testing;
-    public Color Color;
+	public Task Music;
+	public Task Art;
+	public Task Testing;
+	public Color Color;
 
 	private Task currTask;
 	private Rigidbody rigidBody;
 
 	private TaskEnum currTaskInfo = TaskEnum.PROGRAMMING;
-    private float revenue = 0f;
+	private float revenue = 0f;
 
 	public TaskEnum CurrTask
 	{
 		get { return currTaskInfo; }
 	}
+	public float PercentFinished
+	{
+		get
+		{
+			return 1 -
+				(
+					Programming.percent +
+					Music.percent +
+					Art.percent +
+					Testing.percent
+				);
+		}
+	}
 
-    public float PercentFinished
-    {
-        get
-        {
-            return 1 -
-                (
-                    Programming.percent +
-                    Music.percent +
-                    Art.percent +
-                    Testing.percent
-                );
-        }
-    }
-
-    public float Revenue
-    {
-        get { return revenue; }
-    }
+	public float Revenue
+	{
+		get { return revenue; }
+	}
 
 	private void Awake()
 	{
@@ -57,12 +69,12 @@ public class Game : MonoBehaviour
 			testingWeight = Random.Range(1, 100),
 			artWeight = Random.Range(1, 100),
 			musicWeight = Random.Range(1, 100);
-		float sum = programmingWeight+testingWeight + artWeight+musicWeight;
+		float sum = programmingWeight + testingWeight + artWeight + musicWeight;
 
-		int musicDiff = (int)(100*(musicWeight / sum)),
+		int musicDiff = (int)(100 * (musicWeight / sum)),
 			artDiff = (int)(100 * (artWeight / sum)),
 			testDiff = (int)(100 * (testingWeight / sum)),
-			progDiff = 100 - musicDiff - testDiff-artDiff;
+			progDiff = 100 - musicDiff - testDiff - artDiff;
 
 		Programming = new Task(progDiff);
 		Testing = new Task(testDiff);
@@ -74,9 +86,10 @@ public class Game : MonoBehaviour
 		rigidBody = GetComponent<Rigidbody>();
 
 
-        revenue = Random.Range(minRevenue, maxRevenue);
-		
+		revenue = Random.Range(minRevenue, maxRevenue);
+
 		var material = gameObject.GetComponent<Renderer>().material;
+
 
         float l = 0f;
         while (l < 0.7f)
@@ -86,16 +99,16 @@ public class Game : MonoBehaviour
         }
         
         material.SetColor("_Color", Color);
-		material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));	
-	}
+		material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));
+		Name = Names[Random.Range(0, Names.Length)];			}
 
 	public bool WorkOn(float speed, EmployeeBar progressBar)
 	{
 		currTask.LowerPercent(speed);
-        progressBar.ChangeColor(CurrTask);
-        progressBar.ChangeValue(currTask.percent);
+		progressBar.ChangeColor(CurrTask);
+		progressBar.ChangeValue(currTask.percent);
 
-        return currTask.IsEnded();
+		return currTask.IsEnded();
 	}
 
 	public void SwitchTask()

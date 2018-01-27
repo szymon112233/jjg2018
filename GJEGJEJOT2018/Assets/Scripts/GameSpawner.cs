@@ -41,7 +41,7 @@ public class
 		{
 			if(Random.Range(0.0f,100.0f) < TrashChance)
 			{
-				var trash = Instantiate(trashProps[Random.Range(0,trashProps.Count-1)], transform.position, transform.rotation);
+				var trash = Instantiate(trashProps[Random.Range(0,trashProps.Count)], transform.position, transform.rotation);
 				var trashRB = trash.GetComponentInChildren<Rigidbody>();
 				if (trashRB != null)
 				{
