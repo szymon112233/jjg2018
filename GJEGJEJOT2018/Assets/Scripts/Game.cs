@@ -5,8 +5,8 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
 	public const string tagName = "Game Box";
-    private const float minRevenue = 10000f;
-    private const float maxRevenue = 20000f;
+    private const float minRevenue = 3000f;
+    private const float maxRevenue = 10000f;
 
 	public string Name = "Generic Game";
 
