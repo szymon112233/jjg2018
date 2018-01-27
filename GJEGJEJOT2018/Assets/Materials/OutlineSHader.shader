@@ -2,11 +2,13 @@
 
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
 Shader "Outlined/Silhouetted Diffuse" {
 	Properties{
 		_Color("Main Color", Color) = (.5,.5,.5,1)
 		_OutlineColor("Outline Color", Color) = (0,0,0,1)
-		_Outline("Outline width", Range(0.0, 0.03)) = .01
+		_Outline("Outline width", Range(0.0, 0.3)) = .1
 		_MainTex("Base (RGB)", 2D) = "white" { }
 	}
 
@@ -29,14 +31,10 @@ Shader "Outlined/Silhouetted Diffuse" {
 	v2f vert(appdata v) {
 		// just make a copy of incoming vertex data but scaled according to normal direction
 		v2f o;
-		o.pos = UnityObjectToClipPos(v.vertex);
-
-		float3 norm = normalize(sign(mul(UNITY_MATRIX_IT_MV, float4(v.vertex.xyz,0))));
-
-		//float3 norm = mul((float3x3)UNITY_MATRIX_IT_MV, worldPos);
-		float2 offset = TransformViewToProjection(norm);
-
-		o.pos.xy += offset * o.pos.w * _Outline;
+		float sx = length(float3(UNITY_MATRIX_M[0][0], UNITY_MATRIX_M[0][1], UNITY_MATRIX_M[0][2]));
+		float sy = length(float3(UNITY_MATRIX_M[1][0], UNITY_MATRIX_M[1][1], UNITY_MATRIX_M[1][2]));
+		float sz = length(float3(UNITY_MATRIX_M[2][0], UNITY_MATRIX_M[2][1], UNITY_MATRIX_M[2][2]));
+		o.pos = UnityObjectToClipPos(v.vertex + sign(v.vertex)*_Outline/**	float3(1 / sx, 1 / sy, 1 / sz*/);	
 		o.color = _OutlineColor;// _OutlineColor;
 		return o;
 	}

@@ -45,6 +45,7 @@ public class GameShipper : MonoBehaviour
 		else gameShippedDisplay.ShowUnsuccessfulShipMessage(game.Name, game.Color, game.PercentFinished, revenue);
 
 		Destroy(game.gameObject);
+		Shipped.Invoke();
 	}
 
 	private void ThrowOut(Game game)
