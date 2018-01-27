@@ -57,6 +57,7 @@ public class Game : MonoBehaviour
     {
         currTaskInfo = (TaskEnum)(((int)currTaskInfo + 1) % ((int)TaskEnum.TESTING + 1));
         currTask = GetTask(currTaskInfo);
+        Debug.Log("SWITCHING TASK TO: " + currTaskInfo);
     }
 
     private Task GetTask(TaskEnum task)

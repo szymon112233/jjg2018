@@ -9,6 +9,8 @@ public class Controller : MonoBehaviour
 	private CharacterController controller;
 	private GameObject gameSocket;
 	private GameObject dropSocket;
+    private Game currGame;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -32,6 +34,7 @@ public class Controller : MonoBehaviour
 		if (body.tag != "Game Box")
 			return;
 		GameObject child = DetachGame();
+        currGame = body.GetComponent<Game>();
 		if (child != null)
 		{
 			child.transform.position = dropSocket.transform.position;
@@ -53,6 +56,7 @@ public class Controller : MonoBehaviour
 		rigid.detectCollisions = true;
 		rigid.useGravity = true;
 		gameSocket.transform.DetachChildren();
+        currGame = null;
 		return child;
 	}
 
@@ -79,5 +83,15 @@ public class Controller : MonoBehaviour
 				}
 			}
 		}
+
+        CheckSwitchTaskInput();
 	}
+
+    private void CheckSwitchTaskInput()
+    {
+        if (Input.GetButtonDown("Fire2"))
+        {
+            currGame.SwitchTask();
+        }
+    }
 }
