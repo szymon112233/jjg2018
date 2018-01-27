@@ -680,9 +680,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4302427532474350}
-  - component: {fileID: 143617009926509446}
   - component: {fileID: 114949939536331466}
   - component: {fileID: 114793660863437058}
+  - component: {fileID: 54940304939093440}
+  - component: {fileID: 136531682094645340}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -2074,6 +2075,21 @@ Transform:
   m_Father: {fileID: 4932482576364602}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0.002550085, y: -0.89094746, z: -2.5441985}
+--- !u!54 &54940304939093440
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1627861249834098}
+  serializedVersion: 2
+  m_Mass: 10
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 84
+  m_CollisionDetection: 0
 --- !u!95 &95300136585924036
 Animator:
   serializedVersion: 3
@@ -2116,6 +2132,19 @@ MonoBehaviour:
   MaxSpeed: 15
   ThrowSpeed: 30
   GameDisplay: {fileID: 0}
+--- !u!136 &136531682094645340
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1627861249834098}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2000
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!137 &137866633091552334
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
@@ -2220,20 +2249,3 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.024329588, y: 0.23464377, z: 0.07942164}
     m_Extent: {x: 0.3283875, y: 0.5787118, z: 0.39324644}
   m_DirtyAABB: 0
---- !u!143 &143617009926509446
-CharacterController:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1627861249834098}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 12
-  m_Radius: 3.01
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0.001
-  m_Center: {x: 0, y: 6, z: 0}
