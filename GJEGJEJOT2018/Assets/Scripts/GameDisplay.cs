@@ -16,6 +16,11 @@ public class GameDisplay : MonoBehaviour
     public Text TaskText;
     public Canvas Canvas;
 
+    private Image ProgrammingIcon;
+    private Image ArtIcon;
+    private Image MusicIcon;
+    private Image TestingIcon;
+
     private void Awake()
     {
         Canvas.enabled = false;
@@ -24,6 +29,12 @@ public class GameDisplay : MonoBehaviour
         SetBarColor(ArtBar, Task.GetColor(TaskEnum.ART));
         SetBarColor(MusicBar, Task.GetColor(TaskEnum.MUSIC));
         SetBarColor(TestingBar, Task.GetColor(TaskEnum.TESTING));
+
+        GameObject panel = GameObject.Find("Panel");
+        ProgrammingIcon = panel.transform.Find("Programming Icon").GetComponent<Image>();
+        ArtIcon = panel.transform.Find("Art Icon").GetComponent<Image>();
+        MusicIcon = panel.transform.Find("Music Icon").GetComponent<Image>();
+        TestingIcon = panel.transform.Find("Testing Icon").GetComponent<Image>();
     }
 
     public void SetGameDisplay(string name, Color color, float programming, float music, float art, float testing)
@@ -39,18 +50,27 @@ public class GameDisplay : MonoBehaviour
 
     public void SetTask(TaskEnum currentTask)
     {
-        switch(currentTask)
+        ProgrammingIcon.color = Color.white;
+        ArtIcon.color = Color.white;
+        MusicIcon.color = Color.white;
+        TestingIcon.color = Color.white;
+
+        switch (currentTask)
         {
             case TaskEnum.PROGRAMMING:
+                ProgrammingIcon.color = Task.colors[(int)TaskEnum.PROGRAMMING];
                 TaskText.text = "Programming";
                 break;
             case TaskEnum.ART:
+                ArtIcon.color = Task.colors[(int)TaskEnum.ART];
                 TaskText.text = "Art";
                 break;
             case TaskEnum.MUSIC:
+                MusicIcon.color = Task.colors[(int)TaskEnum.MUSIC];
                 TaskText.text = "Music";
                 break;
             case TaskEnum.TESTING:
+                TestingIcon.color = Task.colors[(int)TaskEnum.TESTING];
                 TaskText.text = "Testing";
                 break;
             default:
