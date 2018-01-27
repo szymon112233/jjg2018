@@ -8,7 +8,7 @@ public class EmployeeBar : MonoBehaviour
 
     public void ChangeColor(TaskEnum task)
     {
-        fillBar.color = BarsController.GetColor(task);
+        fillBar.color = Task.GetColor(task);
     }
 
     public void ChangeValue(float value)
