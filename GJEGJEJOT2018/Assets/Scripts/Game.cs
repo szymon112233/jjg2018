@@ -8,10 +8,12 @@ public class Game : MonoBehaviour
 
 	public string Name = "Generic Game";
 
-	private Task Programming;
-	private Task Music;
-	private Task Art;
-	private Task Testing;
+	public Task Programming;
+    public Task Music;
+    public Task Art;
+    public Task Testing;
+
+    public Color Color;
 
 	private Task currTask;
 	private Rigidbody rigidBody;
@@ -50,7 +52,9 @@ public class Game : MonoBehaviour
 
 		rigidBody = GetComponent<Rigidbody>();
 
-		gameObject.GetComponent<Renderer>().material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+        Color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+        gameObject.GetComponent<Renderer>().material.color = Color;
+        
 	}
 
 	public bool WorkOn(float speed, EmployeeBar progressBar)

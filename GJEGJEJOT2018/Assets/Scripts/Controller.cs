@@ -6,6 +6,7 @@ public class Controller : MonoBehaviour
 {
 	public float MaxSpeed = 0.2f;
 	public float ThrowSpeed = 2.0f;
+    public GameDisplay GameDisplay;
 	private CharacterController controller;
 	private Game currGame;
 	private SocketAttacher socketAttacher;
@@ -62,6 +63,7 @@ public class Controller : MonoBehaviour
 		socketAttacher.AttachToGameSocket(currGame, false);
 		animator.SetBool("HasBox", true);
 		animator.ResetTrigger("Throw");
+        GameDisplay.SetGameDisplay(currGame.Name, currGame.Programming, currGame.Music, currGame.Art,currGame.Testing);
 	}
 
 	// Update is called once per frame
