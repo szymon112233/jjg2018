@@ -4,20 +4,27 @@ using UnityEngine;
 
 public class EndThrowing : StateMachineBehaviour
 {
-	bool notified = false;
+	bool notifiedApex = false;
+	bool notifiedMovement = false;
 	// OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		notified = false;
+		notifiedApex = false;
+		notifiedMovement = false;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
 	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		if (!notified && stateInfo.normalizedTime > 0.65)
+		if (!notifiedApex && stateInfo.normalizedTime > 0.2)
 		{
-			notified = true;
-			animator.SendMessageUpwards("OnThrowEnd");
+			notifiedApex = true;
+			animator.SendMessageUpwards("OnThrowApex");
+		}
+		if (!notifiedMovement && stateInfo.normalizedTime > 0.5)
+		{
+			notifiedMovement = true;
+			animator.SendMessageUpwards("OnEnableMovement");
 		}
 	}
 
