@@ -19,12 +19,14 @@ public class GameShippedDisplay : MonoBehaviour
 
     public void ShowShipMessage(string title, float completion, float earnedMoney)
     {
+        Canvas.enabled = true;
+
         string criticsMessage = RandomizeScoreText(completion);
         GameTitle.text = title + " has been shipped!";
         GameScore.text = "Critics say: " + criticsMessage;
         EarnedMoney.text = "We made " + earnedMoney + " bucks!";
 
-
+        StartCoroutine(ShowDisplay());
     }
 
     private string RandomizeScoreText(float completion)
@@ -49,8 +51,26 @@ public class GameShippedDisplay : MonoBehaviour
         }
     }
 
-    //private IEnumerator ShowDisplay()
-    //{
-
-    //}
+    private IEnumerator ShowDisplay()
+    {
+        Color color = new Color(0f, 0f, 0f, 0f); 
+        while (color.a < 1f)
+        {
+            GameTitle.color = color;
+            GameScore.color = color;
+            EarnedMoney.color = color;
+            yield return new WaitForSeconds(0.03f);
+            color.a += 0.1f;
+        }
+        yield return new WaitForSeconds(4f);
+        while (color.a > 0f)
+        {
+            GameTitle.color = color;
+            GameScore.color = color;
+            EarnedMoney.color = color;
+            yield return new WaitForSeconds(0.03f);
+            color.a -= 0.1f;
+        }
+        Canvas.enabled = false;
+    }
 }
