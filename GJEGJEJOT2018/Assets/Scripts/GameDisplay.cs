@@ -30,7 +30,7 @@ public class GameDisplay : MonoBehaviour
         SetBarColor(MusicBar, Task.GetColor(TaskEnum.MUSIC));
         SetBarColor(TestingBar, Task.GetColor(TaskEnum.TESTING));
 
-        GameObject panel = GameObject.Find("Panel");
+        GameObject panel = GameObject.Find("PanelGameDisplay");
         ProgrammingIcon = panel.transform.Find("Programming Icon").GetComponent<Image>();
         ArtIcon = panel.transform.Find("Art Icon").GetComponent<Image>();
         MusicIcon = panel.transform.Find("Music Icon").GetComponent<Image>();

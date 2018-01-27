@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 222908180438550484}
   - component: {fileID: 114478484108370310}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: PanelGameDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -701,7 +701,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1902619920674822
 GameObject:
   m_ObjectHideFlags: 1
@@ -1229,8 +1229,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bdad9963b197d04cbc0f6000405535f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Money: 1000
-  MoneyPerShippedGame: 10000
+  Money: 10000
+  MoneyPerShippedGame: 5000
   LostMoneyPerSecond: 100
   LoseMoneyTimer: 0.1
   MoneyDisplay: {fileID: 114422035026709494}
