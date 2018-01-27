@@ -17,6 +17,11 @@ public class GameDisplay : MonoBehaviour
     private void Awake()
     {
         Canvas.enabled = false;
+
+        SetBarColor(ProgrammingBar, Task.GetColor(TaskEnum.PROGRAMMING));
+        SetBarColor(ArtBar, Task.GetColor(TaskEnum.ART));
+        SetBarColor(MusicBar, Task.GetColor(TaskEnum.MUSIC));
+        SetBarColor(TestingBar, Task.GetColor(TaskEnum.TESTING));
     }
 
     public void SetGameDisplay(string name, Color color, float programming, float music, float art, float testing)
@@ -49,11 +54,18 @@ public class GameDisplay : MonoBehaviour
             default:
                 break;
         }
+
+        TaskText.color = Task.GetColor(currentTask);
         // set task image
     }
 
     public void CloseGameDisplay()
     {
         Canvas.enabled = false;
+    }
+
+    private void SetBarColor(Slider slider, Color color)
+    {
+        slider.transform.Find("Fill Area").transform.Find("Fill").GetComponent<Image>().color = color;
     }
 }

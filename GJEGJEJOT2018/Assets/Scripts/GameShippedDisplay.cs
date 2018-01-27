@@ -29,9 +29,22 @@ public class GameShippedDisplay : MonoBehaviour
         StartCoroutine(ShowDisplay());
     }
 
+    public void ShowFailMessage(string title, float completion, float earnedMoney)
+    {
+        Canvas.enabled = true;
+
+        string criticsMessage = RandomizeScoreText(completion);
+        GameTitle.text = title + " has failed!";
+        GameScore.text = "Critics didn't like this one: " + criticsMessage;
+        EarnedMoney.text = "Here's some pity money: $" + earnedMoney;
+
+        StartCoroutine(ShowDisplay());
+    }
+
     private string RandomizeScoreText(float completion)
     {
-        Critics critic = (Critics)Random.Range(0, 4);
+        // TODO: Replace placeholders, set correct range
+        Critics critic = (Critics)Random.Range(0, 0);
 
         switch(critic)
         {
