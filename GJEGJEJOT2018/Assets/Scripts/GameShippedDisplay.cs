@@ -19,32 +19,35 @@ public class GameShippedDisplay : MonoBehaviour
 
     public void ShowSuccessfulShipMessage(string title, Color color, float completion, float earnedMoney)
     {
+        StopAllCoroutines();
         Canvas.enabled = true;
 
         string criticsMessage = RandomizeScoreText(completion);
         GameTitle.text = title + " has been shipped!";
         GameTitle.color = color;
         GameScore.text = "Critics say: " + criticsMessage;
-        EarnedMoney.text = "We made " + earnedMoney + " bucks!";
+        EarnedMoney.text = "We made " + (int)earnedMoney + " bucks!";
 
         StartCoroutine(ShowDisplay());
     }
 
     public void ShowUnsuccessfulShipMessage(string title, Color color, float completion, float earnedMoney)
     {
+        StopAllCoroutines();
         Canvas.enabled = true;
 
         string criticsMessage = RandomizeScoreText(completion);
         GameTitle.text = title + " has been shipped!";
         GameTitle.color = color;
         GameScore.text = "Critics say: " + criticsMessage;
-        EarnedMoney.text = "We made just $" + earnedMoney + ". Welp. Maybe next time";
+        EarnedMoney.text = "We made just $" + (int)earnedMoney + ". Welp. Maybe next time";
 
         StartCoroutine(ShowDisplay());
     }
 
     public void ShowFailMessage(string title, Color color, float completion)
     {
+        StopAllCoroutines();
         Canvas.enabled = true;
 
         string criticsMessage = RandomizeScoreText(completion);
@@ -84,20 +87,21 @@ public class GameShippedDisplay : MonoBehaviour
         Color color = new Color(0f, 0f, 0f, 0f); 
         while (color.a < 1f)
         {
+            color.a += 0.1f;
             GameTitle.color = color;
             GameScore.color = color;
             EarnedMoney.color = color;
             yield return new WaitForSeconds(0.03f);
-            color.a += 0.1f;
         }
+
         yield return new WaitForSeconds(4f);
         while (color.a > 0f)
         {
+            color.a -= 0.1f;
             GameTitle.color = color;
             GameScore.color = color;
             EarnedMoney.color = color;
             yield return new WaitForSeconds(0.03f);
-            color.a -= 0.1f;
         }
         Canvas.enabled = false;
     }
