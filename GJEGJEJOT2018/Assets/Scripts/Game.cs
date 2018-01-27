@@ -51,10 +51,9 @@ public class Game : MonoBehaviour
 
 		rigidBody = GetComponent<Rigidbody>();
 
-        Color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
-        gameObject.GetComponent<Renderer>().material.color = Color;
-        
-	}
+		var material = gameObject.GetComponent<Renderer>().material;
+		material.SetColor("_Color",new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)));
+		material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));	}
 
 	public bool WorkOn(float speed, EmployeeBar progressBar)
 	{
@@ -70,6 +69,7 @@ public class Game : MonoBehaviour
 		currTaskInfo = (TaskEnum)(((int)currTaskInfo + 1) % ((int)TaskEnum.TESTING + 1));
 		currTask = GetTask(currTaskInfo);
 		Debug.Log("SWITCHING TASK TO: " + currTaskInfo);
+		gameObject.GetComponent<Renderer>().material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));
 	}
 
 	private Task GetTask(TaskEnum task)

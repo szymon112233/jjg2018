@@ -35,7 +35,7 @@ public class Controller : MonoBehaviour
 
 	private void OnThrowApex()
 	{
-		var game = DetachGame();
+		var game	= DetachGame();
 		if (game != null)
 		{
 			var rigid = game.GetComponent<Rigidbody>();
@@ -60,6 +60,7 @@ public class Controller : MonoBehaviour
 		var tmp = currGame;
 		currGame = null;
         GameDisplay.CloseGameDisplay();
+		Debug.Log(tmp.name);
 		return tmp;
 	}
 

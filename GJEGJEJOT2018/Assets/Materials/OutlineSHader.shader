@@ -6,7 +6,7 @@ Shader "Outlined/Silhouetted Diffuse" {
 	Properties{
 		_Color("Main Color", Color) = (.5,.5,.5,1)
 		_OutlineColor("Outline Color", Color) = (0,0,0,1)
-		_Outline("Outline width", Range(0.0, 0.005)) = .003
+		_Outline("Outline width", Range(0.0, 0.01)) = .01
 		_MainTex("Base (RGB)", 2D) = "white" { }
 	}
 
@@ -58,7 +58,7 @@ Shader "Outlined/Silhouetted Diffuse" {
 					  // you can choose what kind of blending mode you want for the outline
 		Blend SrcAlpha OneMinusSrcAlpha // Normal
 										//Blend One One // Additive
-										//Blend One OneMinusDstColor // Soft Additive
+										Blend One OneMinusDstColor // Soft Additive
 										//Blend DstColor Zero // Multiplicative
 										//Blend DstColor SrcColor // 2x Multiplicative
 
@@ -76,7 +76,7 @@ Shader "Outlined/Silhouetted Diffuse" {
 		Name "BASE"
 		ZWrite On
 		ZTest LEqual
-		Blend SrcAlpha OneMinusSrcAlpha
+		Blend Off
 		Material{
 		Diffuse[_Color]
 		Ambient[_Color]
@@ -122,7 +122,7 @@ Shader "Outlined/Silhouetted Diffuse" {
 		Name "BASE"
 		ZWrite On
 		ZTest LEqual
-		Blend SrcAlpha OneMinusSrcAlpha
+		Blend Off
 		Material{
 		Diffuse[_Color]
 		Ambient[_Color]
