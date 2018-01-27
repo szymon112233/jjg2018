@@ -18,8 +18,8 @@ public class Game : MonoBehaviour
 			"Transnite"
 		};
 	public const string tagName = "Game Box";
-    private const float minRevenue = 10000f;
-    private const float maxRevenue = 20000f;
+    private const float minRevenue = 2000f;
+    private const float maxRevenue = 8000f;
 
 	public string Name;
 
@@ -102,7 +102,7 @@ public class Game : MonoBehaviour
 		material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));
 		Name = Names[Random.Range(0, Names.Length)];			}
 
-	public bool WorkOn(float speed, EmployeeBar progressBar)
+	public bool WorkOn(float speed, ProgressBar progressBar)
 	{
 		currTask.LowerPercent(speed);
 		progressBar.ChangeColor(CurrTask);
