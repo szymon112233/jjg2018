@@ -18,8 +18,8 @@ public class Game : MonoBehaviour
 			"Transnite"
 		};
 	public const string tagName = "Game Box";
-    private const float minRevenue = 10000f;
-    private const float maxRevenue = 20000f;
+    private const float minRevenue = 2000f;
+    private const float maxRevenue = 8000f;
 
 	public string Name;
 

@@ -8,6 +8,7 @@ TagManager:
   - DropSocket
   - GameSocket
   - MainCanvas
+  - Water
   layers:
   - Default
   - TransparentFX
