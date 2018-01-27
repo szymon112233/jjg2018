@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class 
-    GameSpawner : MonoBehaviour
+public class
+	GameSpawner : MonoBehaviour
 {
-    public Transform GameBox;
+	public Transform GameBox;
 	public float SpawnThrowSpeed = 20;
 	public float AngularVelocityMax = 40;
 	public float SpawnFrequency = 3;
@@ -18,12 +18,15 @@ public class
 	private void Start()
 	{
 		CurrentGames = GameObject.FindObjectsOfType<Game>().Length;
+		var shipper = GameObject.FindObjectOfType<GameShipper>();
+		if (shipper != null)
+			shipper.Shipped.AddListener(OnGameShipped);
 	}
 
 	private void Update()
 	{
 		ElapsedTime += Time.deltaTime;
-		if(MaxGames > CurrentGames && ElapsedTime >= ((MinGames > CurrentGames)?RushFrequency:SpawnFrequency))
+		if (MaxGames > CurrentGames && ElapsedTime >= ((MinGames > CurrentGames) ? RushFrequency : SpawnFrequency))
 		{
 			ElapsedTime = 0;
 			SpawnTask();
@@ -31,15 +34,18 @@ public class
 	}
 
 	public void SpawnTask()
-    {
-        var ret = Instantiate(GameBox, transform.position, transform.rotation);
+	{
+		var ret = Instantiate(GameBox, transform.position, transform.rotation);
 		var rb = ret.GetComponent<Rigidbody>();
-		rb.velocity = SpawnThrowSpeed * transform.TransformVector(Vector3.forward);
-		rb.angularVelocity = Random.insideUnitSphere*AngularVelocityMax;
+		if (rb != null)
+		{
+			rb.velocity = SpawnThrowSpeed * transform.TransformVector(Vector3.forward);
+			rb.angularVelocity = Random.insideUnitSphere * AngularVelocityMax;
+		}
 		CurrentGames++;
-    }
+	}
 
-	private void OnGameShipped()
+	public void OnGameShipped()
 	{
 		CurrentGames--;
 	}
