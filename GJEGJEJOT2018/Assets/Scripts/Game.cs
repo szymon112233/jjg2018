@@ -119,6 +119,7 @@ public class Game : MonoBehaviour
 
 	public void StopPhysics(bool useFancyRotator)
 	{
+		rigidBody.isKinematic = true;
 		rigidBody.useGravity = false;
 		rigidBody.detectCollisions = false;
 		transform.localRotation = Quaternion.identity;
@@ -128,6 +129,7 @@ public class Game : MonoBehaviour
 
 	public void StartPhysics()
 	{
+		rigidBody.isKinematic = false;
 		GetComponent<FancyRotator>().enabled = false;
 		rigidBody.detectCollisions = true;
 		rigidBody.useGravity = true;
