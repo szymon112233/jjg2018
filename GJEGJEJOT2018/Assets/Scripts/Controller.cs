@@ -7,25 +7,14 @@ public class Controller : MonoBehaviour
 	public float MaxSpeed = 0.2f;
 	public float ThrowSpeed = 2.0f;
 	private CharacterController controller;
-	private GameObject gameSocket;
-	private GameObject dropSocket;
 	private Game currGame;
+	private SocketAttacher socketAttacher;
 
 	// Use this for initialization
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
-		foreach (Transform child in transform)
-		{
-			if (child.gameObject.tag == "GameSocket")
-			{
-				gameSocket = child.gameObject;
-			}
-			if (child.gameObject.tag == "DropSocket")
-			{
-				dropSocket = child.gameObject;
-			}
-		}
+		socketAttacher = GetComponent<SocketAttacher>();
 	}
 
 	private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -35,7 +24,7 @@ public class Controller : MonoBehaviour
 			return;
 		var game = DetachGame();
 		if (game != null)
-			game.transform.position = dropSocket.transform.position;
+			socketAttacher.MoveToDropSocket(game);
 		currGame = body.GetComponent<Game>();
 		AttachGame();
 	}
@@ -44,8 +33,7 @@ public class Controller : MonoBehaviour
 	{
 		if (currGame == null)
 			return null;
-		currGame.StartPhysics();
-		gameSocket.transform.DetachChildren();
+		socketAttacher.DetachFromGameSocket(currGame);
 		var tmp = currGame;
 		currGame = null;
 		return tmp;
@@ -55,8 +43,7 @@ public class Controller : MonoBehaviour
 	{
 		if (currGame == null)
 			return;
-		currGame.transform.SetParent(gameSocket.transform);
-		currGame.GetComponent<Game>().StopPhysics();
+		socketAttacher.AttachToGameSocket(currGame);
 	}
 
 	// Update is called once per frame
@@ -79,7 +66,7 @@ public class Controller : MonoBehaviour
 				var rigid = game.GetComponent<Rigidbody>();
 				if (rigid != null)
 				{
-					rigid.velocity = ThrowSpeed * transform.localToWorldMatrix.MultiplyVector(Vector3.forward);
+					rigid.velocity = ThrowSpeed * transform.localToWorldMatrix.MultiplyVector(Vector3.forward + Vector3.down*0.2f);
 				}
 			}
 		}

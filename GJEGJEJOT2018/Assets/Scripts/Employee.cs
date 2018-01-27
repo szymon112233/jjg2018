@@ -11,7 +11,7 @@ public class Employee : MonoBehaviour {
     private TaskEnum _gameTask;
     private Ability _currAbility;
 
-    protected virtual void Update()
+	protected virtual void Update()
     {
         if (_game != null)
         {
@@ -30,7 +30,7 @@ public class Employee : MonoBehaviour {
         music.GenerateValue();
         art.GenerateValue();
         testing.GenerateValue();
-    }
+	}
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -46,10 +46,18 @@ public class Employee : MonoBehaviour {
     {
         _game = game;
         _currAbility = GetAbility(game.CurrTask);
-    }
+		if (_game)
+			GetComponent<SocketAttacher>().AttachToGameSocket(_game);
+	}
 
     public void RemoveGame()
     {
+		if(_game != null)
+		{
+			SocketAttacher socketAttacher = GetComponent<SocketAttacher>();
+			socketAttacher.DetachFromGameSocket(_game);
+			socketAttacher.MoveToDropSocket(_game);
+		}
         _game = null;
         _currAbility = null;
     }

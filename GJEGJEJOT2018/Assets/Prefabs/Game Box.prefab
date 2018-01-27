@@ -24,6 +24,7 @@ GameObject:
   - component: {fileID: 23067186389608790}
   - component: {fileID: 114472019702646996}
   - component: {fileID: 54799876471422832}
+  - component: {fileID: 114859946732580240}
   m_Layer: 0
   m_Name: Game Box
   m_TagString: Game Box
@@ -39,7 +40,7 @@ Transform:
   m_GameObject: {fileID: 1856421018494232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 602.5, y: 459.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 1, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -124,3 +125,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: Generic Game
+--- !u!114 &114859946732580240
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1856421018494232}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17a8fc43bb5407e4886ec366770966fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PositionAmplitude: 0.5
+  AngularAmplitude: 3
+  PositionPeriod: 2.6
+  AngularVelocityPeriod: 5.6666665
