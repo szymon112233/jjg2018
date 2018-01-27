@@ -5,6 +5,8 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
 	public const string tagName = "Game Box";
+    private const float minRevenue = 10000f;
+    private const float maxRevenue = 20000f;
 
 	public string Name = "Generic Game";
 
@@ -16,11 +18,31 @@ public class Game : MonoBehaviour
 	private Task currTask;
 	private Rigidbody rigidBody;
 	private TaskEnum currTaskInfo = TaskEnum.PROGRAMMING;
+    private float revenue = 0f;
 
 	public TaskEnum CurrTask
 	{
 		get { return currTaskInfo; }
 	}
+
+    public float PercentFinished
+    {
+        get
+        {
+            return 1 -
+                (
+                    Programming.percent +
+                    Music.percent +
+                    Art.percent +
+                    Testing.percent
+                );
+        }
+    }
+
+    public float Revenue
+    {
+        get { return revenue; }
+    }
 
 	private void Awake()
 	{
@@ -51,6 +73,8 @@ public class Game : MonoBehaviour
 		rigidBody = GetComponent<Rigidbody>();
 
 		gameObject.GetComponent<Renderer>().material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+
+        revenue = Random.Range(minRevenue, maxRevenue);
 	}
 
 	public bool WorkOn(float speed, EmployeeBar progressBar)
@@ -101,5 +125,4 @@ public class Game : MonoBehaviour
 		rigidBody.detectCollisions = true;
 		rigidBody.useGravity = true;
 	}
-
 }

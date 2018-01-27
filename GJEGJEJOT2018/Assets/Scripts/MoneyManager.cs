@@ -32,4 +32,9 @@ public class MoneyManager : MonoBehaviour
         }
         
     }
+
+    public void AddMoney(float value)
+    {
+        Money += value > 0 ? value : 0f;
+    }
 }
