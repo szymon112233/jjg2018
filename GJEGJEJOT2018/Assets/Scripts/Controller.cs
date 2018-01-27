@@ -72,7 +72,7 @@ public class Controller : MonoBehaviour
 		animator.SetBool("HasBox", true);
 		animator.ResetTrigger("Throw");
         GameDisplay.SetGameDisplay(currGame.Name,currGame.Color, currGame.Programming.percent, currGame.Music.percent, currGame.Art.percent, currGame.Testing.percent);
-        GameDisplay.SetTask(currGame.currTaskInfo);
+        GameDisplay.SetTask(currGame.CurrTask);
 	}
 
 	// Update is called once per frame
@@ -119,7 +119,7 @@ public class Controller : MonoBehaviour
             if (currGame != null)
             {
                 currGame.SwitchTask();
-                GameDisplay.SetTask(currGame.currTaskInfo);
+                GameDisplay.SetTask(currGame.CurrTask);
             }
 		}
 	}
