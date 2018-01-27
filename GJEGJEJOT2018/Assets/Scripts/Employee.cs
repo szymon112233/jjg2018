@@ -13,7 +13,12 @@ public class Employee : MonoBehaviour {
     private TaskEnum _gameTask;
     private Ability _currAbility;
 
-	protected virtual void Update()
+    private void Awake()
+    {
+        Build();
+    }
+
+    protected virtual void Update()
     {
         if (_game != null)
         {

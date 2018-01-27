@@ -8,7 +8,7 @@ public class EmployeesManager : MonoBehaviour {
 
     private void Awake()
     {
-        BuildEmployees();
+        //BuildEmployees();
     }
 
     public void BuildEmployees()
