@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a8fc43bb5407e4886ec366770966fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PositionAmplitude: 0.5
+  PositionAmplitude: 5
   AngularAmplitude: 3
   PositionPeriod: 2.6
   AngularVelocityPeriod: 5.6666665
