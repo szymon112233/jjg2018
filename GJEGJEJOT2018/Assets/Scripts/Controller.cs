@@ -88,7 +88,8 @@ public class Controller : MonoBehaviour
 	{
 		if (Input.GetButtonDown("Fire2"))
 		{
-			currGame.SwitchTask();
+			if(currGame != null)
+				currGame.SwitchTask();
 		}
 	}
 }
