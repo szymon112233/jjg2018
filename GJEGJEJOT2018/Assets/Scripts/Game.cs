@@ -8,14 +8,15 @@ public class Game : MonoBehaviour
 
 	public string Name = "Generic Game";
 
-	private Task Programming;
-	private Task Music;
-	private Task Art;
-	private Task Testing;
+	public Task Programming;
+    public Task Music;
+    public Task Art;
+    public Task Testing;
+    public Color Color;
 
 	private Task currTask;
 	private Rigidbody rigidBody;
-	private TaskEnum currTaskInfo = TaskEnum.PROGRAMMING;
+	public TaskEnum currTaskInfo = TaskEnum.PROGRAMMING;
 
 	public TaskEnum CurrTask
 	{
@@ -52,8 +53,7 @@ public class Game : MonoBehaviour
 
 		var material = gameObject.GetComponent<Renderer>().material;
 		material.SetColor("_Color",new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f)));
-		material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));
-	}
+		material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));	}
 
 	public bool WorkOn(float speed, EmployeeBar progressBar)
 	{

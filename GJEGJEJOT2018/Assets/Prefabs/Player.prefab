@@ -2115,6 +2115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MaxSpeed: 15
   ThrowSpeed: 30
+  GameDisplay: {fileID: 0}
 --- !u!137 &137866633091552334
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
