@@ -39,13 +39,13 @@ public class SocketAttacher : MonoBehaviour
 		}
 	}
 
-	public void AttachToGameSocket(Game game)
+	public void AttachToGameSocket(Game game, bool useFancyRotator = true)
 	{
 		if (gameSocket != null)
 		{
 			game.transform.SetParent(gameSocket.transform);
 			game.transform.position = Vector3.zero;
-			game.StopPhysics();
+			game.StopPhysics(useFancyRotator);
 		}
 	}
 }

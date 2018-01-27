@@ -80,13 +80,13 @@ public class Game : MonoBehaviour
         }
     }
 
-	public void StopPhysics()
+	public void StopPhysics(bool useFancyRotator)
 	{
 		rigidBody.useGravity = false;
 		rigidBody.detectCollisions = false;
 		transform.localRotation = Quaternion.identity;
 		rigidBody.velocity = rigidBody.angularVelocity = transform.localPosition = Vector3.zero;
-		GetComponent<FancyRotator>().enabled = true;
+		GetComponent<FancyRotator>().enabled = useFancyRotator;
 	}
 
 	public void StartPhysics()
