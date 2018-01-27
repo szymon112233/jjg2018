@@ -1,13 +1,26 @@
 ﻿using UnityEngine;
 
-public class Employee : MonoBehaviour {
+public class Employee : MonoBehaviour
+{
+    private static RectTransform _mainCanvas;
+    private static RectTransform MainCanvas
+    {
+        get
+        {
+            if (_mainCanvas == null)
+                _mainCanvas = GameObject.FindGameObjectWithTag(GameDisplay.tagName).GetComponent<RectTransform>();
+            return _mainCanvas;
+        }
+    }
+
+    [SerializeField] private GameObject BarsPrefab;
 
     [SerializeField] protected Ability programming;
     [SerializeField] protected Ability music;
     [SerializeField] protected Ability art;
     [SerializeField] protected Ability testing;
 
-    [SerializeField] private BarsController bars;
+    private BarsController bars;
 
     private Game _game;
     private TaskEnum _gameTask;
@@ -38,6 +51,8 @@ public class Employee : MonoBehaviour {
 
     public virtual void Build()
     {
+        bars = Instantiate(BarsPrefab, MainCanvas.transform).GetComponent<BarsController>();
+        bars.targetCanvas = MainCanvas;
         bars.objectToFollow = this.transform;
         for (int i = 0; i <= (int)TaskEnum.TESTING; i++)
             GenerateValue((TaskEnum)i);

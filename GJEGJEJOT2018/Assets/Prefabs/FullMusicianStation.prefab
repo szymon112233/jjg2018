@@ -4372,6 +4372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd951bc1ca33df94989f0071421eacc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BarsPrefab: {fileID: 1681004257420436, guid: 90910580ecfd2334fb7fa912fc593214, type: 2}
   programming:
     downRange: 0.05
     upRange: 0.2
@@ -4384,7 +4385,6 @@ MonoBehaviour:
   testing:
     downRange: 0.02
     upRange: 0.35
-  bars: {fileID: 0}
 --- !u!114 &114048993739930064
 MonoBehaviour:
   m_ObjectHideFlags: 1
