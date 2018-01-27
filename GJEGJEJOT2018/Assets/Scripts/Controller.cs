@@ -7,7 +7,6 @@ public class Controller : MonoBehaviour
 	public float MaxSpeed = 0.2f;
 	public float ThrowSpeed = 2.0f;
     public GameDisplay GameDisplay;
-	private CharacterController controller;
 	private Game currGame;
 	private SocketAttacher socketAttacher;
 	private Animator animator;
@@ -16,22 +15,27 @@ public class Controller : MonoBehaviour
 	// Use this for initialization
 	void Start()
 	{
-		controller = GetComponent<CharacterController>();
 		socketAttacher = GetComponent<SocketAttacher>();
 		animator = GetComponentInChildren<Animator>();
 	}
 
-	private void OnControllerColliderHit(ControllerColliderHit hit)
+	private void OnCollisionEnter(Collision collision)
 	{
-		PickUpGame(hit);
-		hit.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-hit.normal*1000,hit.point);
+		PickUpGame(collision);
+		//var rb = hit.gameObject.GetComponent<Rigidbody>();
+		//if (rb != null)
+		//	rb.AddForceAtPosition(-hit.normal * 1000, hit.point);
 	}
 
-	private void PickUpGame(ControllerColliderHit hit)
+	private void OnControllerColliderHit(ControllerColliderHit hit)
+	{
+	}
+
+	private void PickUpGame(Collision collision)
 	{
 		if (currGame != null)
 			return;
-		var body = hit.gameObject;
+		var body = collision.gameObject;
 		if (!body.CompareTag(Game.tagName))
 			return;
 		var game = DetachGame();
@@ -112,7 +116,7 @@ public class Controller : MonoBehaviour
 		float x = Input.GetAxis("Horizontal");
 		float y = Input.GetAxis("Vertical");
 		Vector3 moveVector = new Vector3(x, 0, y);
-		controller.Move(moveVector * MaxSpeed * Time.deltaTime);
+		transform.position += (moveVector * MaxSpeed * Time.deltaTime);
 		animator.SetBool("IsRunning", moveVector.magnitude > 0);
 		if (moveVector.magnitude > 0)
 		{
