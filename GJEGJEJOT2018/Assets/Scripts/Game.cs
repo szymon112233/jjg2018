@@ -53,22 +53,21 @@ public class Game : MonoBehaviour
 
 	private void Build()
 	{
-		int percentLeft = 100;
+		int programmingWeight = Random.Range(1, 100),
+			testingWeight = Random.Range(1, 100),
+			artWeight = Random.Range(1, 100),
+			musicWeight = Random.Range(1, 100);
+		float sum = programmingWeight+testingWeight + artWeight+musicWeight;
 
-		int nextpercent = Random.Range(0, percentLeft + 1);
-		Programming = new Task(nextpercent);
-		percentLeft -= nextpercent;
+		int musicDiff = (int)(100*(musicWeight / sum)),
+			artDiff = (int)(100 * (artWeight / sum)),
+			testDiff = (int)(100 * (testingWeight / sum)),
+			progDiff = 100 - musicDiff - testDiff-artDiff;
 
-		nextpercent = Random.Range(0, percentLeft + 1);
-		Testing = new Task(nextpercent);
-		percentLeft -= nextpercent;
-
-		nextpercent = Random.Range(0, percentLeft + 1);
-		Art = new Task(nextpercent);
-		percentLeft -= nextpercent;
-
-		nextpercent = percentLeft;
-		Music = new Task(nextpercent);
+		Programming = new Task(progDiff);
+		Testing = new Task(testDiff);
+		Art = new Task(artDiff);
+		Music = new Task(musicDiff);
 
 		currTask = Programming;
 
