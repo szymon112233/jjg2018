@@ -48,5 +48,6 @@ public class GameShipper : MonoBehaviour {
     {
         Debug.Log("SHIPPING: game thrown out");
         Destroy(game.gameObject);
+		SendMessage("OnGameShipped");
     }
 }
