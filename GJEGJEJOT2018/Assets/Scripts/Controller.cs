@@ -6,6 +6,7 @@ public class Controller : MonoBehaviour
 {
 	public float MaxSpeed = 0.2f;
 	public float ThrowSpeed = 2.0f;
+    public GameDisplay GameDisplay;
 	private CharacterController controller;
 	private Game currGame;
 	private SocketAttacher socketAttacher;
@@ -34,7 +35,7 @@ public class Controller : MonoBehaviour
 
 	private void OnThrowApex()
 	{
-		var game = DetachGame();
+		var game	= DetachGame();
 		if (game != null)
 		{
 			var rigid = game.GetComponent<Rigidbody>();
@@ -58,6 +59,8 @@ public class Controller : MonoBehaviour
 		socketAttacher.DetachFromGameSocket(currGame);
 		var tmp = currGame;
 		currGame = null;
+        GameDisplay.CloseGameDisplay();
+		Debug.Log(tmp.name);
 		return tmp;
 	}
 
@@ -68,6 +71,8 @@ public class Controller : MonoBehaviour
 		socketAttacher.AttachToGameSocket(currGame, false);
 		animator.SetBool("HasBox", true);
 		animator.ResetTrigger("Throw");
+        GameDisplay.SetGameDisplay(currGame.Name,currGame.Color, currGame.Programming.percent, currGame.Music.percent, currGame.Art.percent, currGame.Testing.percent);
+        GameDisplay.SetTask(currGame.CurrTask);
 	}
 
 	// Update is called once per frame
@@ -111,8 +116,11 @@ public class Controller : MonoBehaviour
 	{
 		if (Input.GetButtonDown("Fire2"))
 		{
-			if (currGame != null)
-				currGame.SwitchTask();
+            if (currGame != null)
+            {
+                currGame.SwitchTask();
+                GameDisplay.SetTask(currGame.CurrTask);
+            }
 		}
 	}
 }
