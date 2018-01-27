@@ -9,12 +9,14 @@ public class Controller : MonoBehaviour
 	private CharacterController controller;
 	private Game currGame;
 	private SocketAttacher socketAttacher;
+	private Animator animator;
 
 	// Use this for initialization
 	void Start()
 	{
 		controller = GetComponent<CharacterController>();
 		socketAttacher = GetComponent<SocketAttacher>();
+		animator = GetComponentInChildren<Animator>();
 	}
 
 	private void OnControllerColliderHit(ControllerColliderHit hit)
@@ -31,6 +33,7 @@ public class Controller : MonoBehaviour
 
 	private Game DetachGame()
 	{
+		animator.SetBool("HasBox", false);
 		if (currGame == null)
 			return null;
 		socketAttacher.DetachFromGameSocket(currGame);
@@ -43,7 +46,8 @@ public class Controller : MonoBehaviour
 	{
 		if (currGame == null)
 			return;
-		socketAttacher.AttachToGameSocket(currGame);
+		socketAttacher.AttachToGameSocket(currGame,false);
+		animator.SetBool("HasBox", true);
 	}
 
 	// Update is called once per frame
@@ -66,7 +70,7 @@ public class Controller : MonoBehaviour
 				var rigid = game.GetComponent<Rigidbody>();
 				if (rigid != null)
 				{
-					rigid.velocity = ThrowSpeed * transform.localToWorldMatrix.MultiplyVector(Vector3.forward + Vector3.down*0.2f);
+					rigid.velocity = ThrowSpeed * transform.localToWorldMatrix.MultiplyVector(Vector3.forward + Vector3.down * 0.2f);
 				}
 			}
 		}
@@ -78,6 +82,7 @@ public class Controller : MonoBehaviour
 		float y = Input.GetAxis("Vertical");
 		Vector3 moveVector = new Vector3(x, 0, y);
 		controller.Move(moveVector * MaxSpeed * Time.deltaTime);
+		animator.SetBool("IsRunning", moveVector.magnitude > 0);
 		if (moveVector.magnitude > 0)
 		{
 			transform.LookAt(transform.position + moveVector);
@@ -88,7 +93,7 @@ public class Controller : MonoBehaviour
 	{
 		if (Input.GetButtonDown("Fire2"))
 		{
-			if(currGame != null)
+			if (currGame != null)
 				currGame.SwitchTask();
 		}
 	}
