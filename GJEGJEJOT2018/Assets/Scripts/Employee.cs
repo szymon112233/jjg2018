@@ -7,6 +7,8 @@ public class Employee : MonoBehaviour {
     [SerializeField] protected Ability art;
     [SerializeField] protected Ability testing;
 
+    [SerializeField] private BarsController bars;
+
     private Game _game;
     private TaskEnum _gameTask;
     private Ability _currAbility;
@@ -26,11 +28,17 @@ public class Employee : MonoBehaviour {
 
     public virtual void Build()
     {
-        programming.GenerateValue();
-        music.GenerateValue();
-        art.GenerateValue();
-        testing.GenerateValue();
+        bars.objectToFollow = this.transform;
+        for (int i = 0; i <= (int)TaskEnum.TESTING; i++)
+            GenerateValue((TaskEnum)i);
 	}
+
+    private void GenerateValue(TaskEnum task)
+    {
+        var ability = GetAbility(task);
+        ability.GenerateValue();
+        bars.GetBar(task).ChangeValue(ability.Value);
+    }
 
     private void OnCollisionEnter(Collision collision)
     {
