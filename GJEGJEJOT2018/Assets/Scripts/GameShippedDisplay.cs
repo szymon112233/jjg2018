@@ -84,7 +84,7 @@ public class GameShippedDisplay : MonoBehaviour
 
     private IEnumerator ShowDisplay()
     {
-        Color color = new Color(0f, 0f, 0f, 0f); 
+        Color color = new Color(1f, 1f, 1f, 0f); 
         while (color.a < 1f)
         {
             color.a += 0.1f;

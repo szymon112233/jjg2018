@@ -6,6 +6,8 @@ public class
 	GameSpawner : MonoBehaviour
 {
 	public Transform GameBox;
+	public List<Transform> trashProps = new List<Transform>();
+	[Range(0,100)]public float TrashChance = 10;
 	public float SpawnThrowSpeed = 20;
 	public float AngularVelocityMax = 40;
 	public float SpawnFrequency = 3;
@@ -26,7 +28,7 @@ public class
 	private void Update()
 	{
 		ElapsedTime += Time.deltaTime;
-		if (MaxGames > CurrentGames && ElapsedTime >= ((MinGames > CurrentGames) ? RushFrequency : SpawnFrequency))
+		if (ElapsedTime >= ((MinGames > CurrentGames) ? RushFrequency : SpawnFrequency))
 		{
 			ElapsedTime = 0;
 			SpawnTask();
@@ -35,6 +37,22 @@ public class
 
 	public void SpawnTask()
 	{
+		if(trashProps.Count != 0)
+		{
+			if(Random.Range(0.0f,100.0f) < TrashChance)
+			{
+				var trash = Instantiate(trashProps[Random.Range(0,trashProps.Count-1)], transform.position, transform.rotation);
+				var trashRB = trash.GetComponentInChildren<Rigidbody>();
+				if (trashRB != null)
+				{
+					trashRB.velocity = SpawnThrowSpeed * transform.TransformVector(Vector3.forward);
+					trashRB.angularVelocity = Random.insideUnitSphere * AngularVelocityMax;
+				}
+				return;
+			}
+		}
+		if (MaxGames <= CurrentGames)
+			return;
 		var ret = Instantiate(GameBox, transform.position, transform.rotation);
 		var rb = ret.GetComponent<Rigidbody>();
 		if (rb != null)
@@ -48,5 +66,7 @@ public class
 	public void OnGameShipped()
 	{
 		CurrentGames--;
+		if (CurrentGames == MaxGames - 1)
+			ElapsedTime = 0;
 	}
 }
