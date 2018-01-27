@@ -9,6 +9,8 @@ public class Controller : MonoBehaviour
 	private CharacterController controller;
 	private GameObject gameSocket;
 	private GameObject dropSocket;
+	private Game currGame;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -29,37 +31,61 @@ public class Controller : MonoBehaviour
 	private void OnControllerColliderHit(ControllerColliderHit hit)
 	{
 		var body = hit.gameObject;
-		if (body.tag != "Game Box")
+		if (!body.CompareTag(Game.tagName))
 			return;
-		GameObject child = DetachGame();
-		if (child != null)
-		{
-			child.transform.position = dropSocket.transform.position;
-		}
-		Rigidbody rigid = body.GetComponent<Rigidbody>();
-		rigid.useGravity = false;
-		rigid.detectCollisions = false;
-		body.transform.SetParent(gameSocket.transform);
-		body.transform.localRotation = Quaternion.identity;
-		rigid.velocity = rigid.angularVelocity = body.transform.localPosition = Vector3.zero;
-		body.GetComponent<FancyRotator>().enabled = true;
+		var game = DetachGame();
+		if (game != null)
+			game.transform.position = dropSocket.transform.position;
+		currGame = body.GetComponent<Game>();
+		AttachGame();
 	}
 
-	private GameObject DetachGame()
+	private Game DetachGame()
 	{
-		if (gameSocket.transform.childCount == 0)
+		if (currGame == null)
 			return null;
-		var child = gameSocket.transform.GetChild(0).gameObject;
-		child.GetComponent<FancyRotator>().enabled = false;
-		var rigid = child.GetComponent<Rigidbody>();
-		rigid.detectCollisions = true;
-		rigid.useGravity = true;
+		currGame.StartPhysics();
 		gameSocket.transform.DetachChildren();
-		return child;
+		var tmp = currGame;
+		currGame = null;
+		return tmp;
+	}
+
+	private void AttachGame()
+	{
+		if (currGame == null)
+			return;
+		currGame.transform.SetParent(gameSocket.transform);
+		currGame.GetComponent<Game>().StopPhysics();
 	}
 
 	// Update is called once per frame
 	void Update()
+	{
+		Move();
+
+		DispenseTask();
+
+		CheckSwitchTaskInput();
+	}
+
+	private void DispenseTask()
+	{
+		if (Input.GetButtonDown("Fire1"))
+		{
+			var game = DetachGame();
+			if (game != null)
+			{
+				var rigid = game.GetComponent<Rigidbody>();
+				if (rigid != null)
+				{
+					rigid.velocity = ThrowSpeed * transform.localToWorldMatrix.MultiplyVector(Vector3.forward);
+				}
+			}
+		}
+	}
+
+	private void Move()
 	{
 		float x = Input.GetAxis("Horizontal");
 		float y = Input.GetAxis("Vertical");
@@ -69,17 +95,13 @@ public class Controller : MonoBehaviour
 		{
 			transform.LookAt(transform.position + moveVector);
 		}
-		if (Input.GetAxis("Fire1") > 0)
+	}
+
+	private void CheckSwitchTaskInput()
+	{
+		if (Input.GetButtonDown("Fire2"))
 		{
-			var game = DetachGame();
-			if(game != null)
-			{
-				var rigid = game.GetComponent<Rigidbody>();
-				if(rigid != null)
-				{
-					rigid.velocity = ThrowSpeed * transform.localToWorldMatrix.MultiplyVector(Vector3.forward);
-				}
-			}
+			currGame.SwitchTask();
 		}
 	}
 }

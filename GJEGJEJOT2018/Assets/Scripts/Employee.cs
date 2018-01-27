@@ -21,7 +21,7 @@ public class Employee : MonoBehaviour {
 
     protected virtual void WorkOnGame()
     {
-        _game.WorkOn(_gameTask, _currAbility.Value);
+        _game.WorkOn(_currAbility.Value);
     }
 
     public virtual void Build()
@@ -32,11 +32,20 @@ public class Employee : MonoBehaviour {
         testing.GenerateValue();
     }
 
-    public void AddGame(Game game, TaskEnum task)
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag(Game.tagName))
+        {
+            Debug.Log("GAME RECEIVED: " + collision.gameObject.GetComponent<Game>().Name);
+            RemoveGame();
+            AddGame(collision.gameObject.GetComponent<Game>());
+        }
+    }
+
+    public void AddGame(Game game)
     {
         _game = game;
-        _currAbility = GetAbility(task);
-        _gameTask = task;
+        _currAbility = GetAbility(game.CurrTask);
     }
 
     public void RemoveGame()

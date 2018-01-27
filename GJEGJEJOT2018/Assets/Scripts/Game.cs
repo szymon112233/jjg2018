@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Game : MonoBehaviour
 {
+    public const string tagName = "Game Box";
+
     public string Name = "Generic Game";
 
     private Task Programming;
@@ -12,6 +14,13 @@ public class Game : MonoBehaviour
     private Task Testing;
 
     private Task currTask;
+	private Rigidbody rigidBody;
+	private TaskEnum currTaskInfo = TaskEnum.PROGRAMMING;
+
+    public TaskEnum CurrTask
+    {
+        get { return currTaskInfo; }
+    }
 
     private void Awake()
     {
@@ -36,12 +45,22 @@ public class Game : MonoBehaviour
 
         nextpercent = percentLeft;
         Music = new Task(nextpercent);
+
+        currTask = Programming;
+
+		rigidBody = GetComponent<Rigidbody>();
+	}
+
+    public void WorkOn(float speed)
+    {
+        currTask.LowerPercent(speed);
     }
 
-    public void WorkOn(TaskEnum task, float speed)
+    public void SwitchTask()
     {
-        currTask = GetTask(task);
-        currTask.LowerPercent(speed);
+        currTaskInfo = (TaskEnum)(((int)currTaskInfo + 1) % ((int)TaskEnum.TESTING + 1));
+        currTask = GetTask(currTaskInfo);
+        Debug.Log("SWITCHING TASK TO: " + currTaskInfo);
     }
 
     private Task GetTask(TaskEnum task)
@@ -60,5 +79,21 @@ public class Game : MonoBehaviour
                 return new Task(0);
         }
     }
+
+	public void StopPhysics()
+	{
+		rigidBody.useGravity = false;
+		rigidBody.detectCollisions = false;
+		transform.localRotation = Quaternion.identity;
+		rigidBody.velocity = rigidBody.angularVelocity = transform.localPosition = Vector3.zero;
+		GetComponent<FancyRotator>().enabled = true;
+	}
+
+	public void StartPhysics()
+	{
+		GetComponent<FancyRotator>().enabled = false;
+		rigidBody.detectCollisions = true;
+		rigidBody.useGravity = true;
+	}
 
 }

@@ -8,9 +8,9 @@ public class Task
 
     public float percent;
 
-    public Task(float value)
+    public Task(int value)
     {
-        percent = value;
+        percent = (float)value / 100f;
     }
 
     public void LowerPercent(float value)
