@@ -77,7 +77,14 @@ public class Game : MonoBehaviour
         revenue = Random.Range(minRevenue, maxRevenue);
 		
 		var material = gameObject.GetComponent<Renderer>().material;
-        Color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+
+        float l = 0f;
+        while (l < 0.7f)
+        {
+            Color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
+            l = Color.r * 0.3f + Color.g * 0.59f + Color.b * 0.11f;
+        }
+        
         material.SetColor("_Color", Color);
 		material.SetColor("_OutlineColor", Task.GetColor(currTaskInfo));	
 	}
