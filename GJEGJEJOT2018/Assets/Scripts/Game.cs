@@ -50,7 +50,7 @@ public class Game : MonoBehaviour
 
 		rigidBody = GetComponent<Rigidbody>();
 
-		gameObject.GetComponent<Renderer>().material.color = new Color(Random.RandomRange(0.0f, 1.0f), Random.RandomRange(0.0f, 1.0f), Random.RandomRange(0.0f, 1.0f));
+		gameObject.GetComponent<Renderer>().material.color = new Color(Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f), Random.Range(0.0f, 1.0f));
 	}
 
 	public void WorkOn(float speed)
