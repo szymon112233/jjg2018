@@ -31,11 +31,24 @@ public class Controller : MonoBehaviour
 		AttachGame();
 	}
 
+	private void OnThrowEnd()
+	{
+		var game = DetachGame();
+		if (game != null)
+		{
+			var rigid = game.GetComponent<Rigidbody>();
+			if (rigid != null)
+			{
+				rigid.velocity = ThrowSpeed * transform.localToWorldMatrix.MultiplyVector(Vector3.forward + Vector3.down * 0.2f);
+			}
+		}
+	}
+
 	private Game DetachGame()
 	{
-		animator.SetBool("HasBox", false);
 		if (currGame == null)
 			return null;
+		animator.SetBool("HasBox", false);
 		socketAttacher.DetachFromGameSocket(currGame);
 		var tmp = currGame;
 		currGame = null;
@@ -46,8 +59,9 @@ public class Controller : MonoBehaviour
 	{
 		if (currGame == null)
 			return;
-		socketAttacher.AttachToGameSocket(currGame,false);
+		socketAttacher.AttachToGameSocket(currGame, false);
 		animator.SetBool("HasBox", true);
+		animator.ResetTrigger("Throw");
 	}
 
 	// Update is called once per frame
@@ -64,15 +78,8 @@ public class Controller : MonoBehaviour
 	{
 		if (Input.GetButtonDown("Fire1"))
 		{
-			var game = DetachGame();
-			if (game != null)
-			{
-				var rigid = game.GetComponent<Rigidbody>();
-				if (rigid != null)
-				{
-					rigid.velocity = ThrowSpeed * transform.localToWorldMatrix.MultiplyVector(Vector3.forward + Vector3.down * 0.2f);
-				}
-			}
+			if (currGame != null)
+				animator.SetTrigger("Throw");
 		}
 	}
 
