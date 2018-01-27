@@ -23,7 +23,12 @@ public class Employee : MonoBehaviour {
 
     protected virtual void WorkOnGame()
     {
-        _game.WorkOn(_currAbility.Value, bars.progressBar);
+        bool isEnd = _game.WorkOn(_currAbility.Value, bars.progressBar);
+
+        if (isEnd)
+        {
+            RemoveGame();
+        }
     }
 
     public virtual void Build()

@@ -4,7 +4,7 @@ using UnityEngine;
 [Serializable]
 public class Task
 {
-    private const float speedModifier = .015f;
+    private const float speedModifier = .3f;
 
     public float percent;
 
@@ -16,5 +16,10 @@ public class Task
     public void LowerPercent(float value)
     {
         percent = Mathf.Clamp01(percent - value * Time.deltaTime * speedModifier);
+    }
+
+    public bool IsEnded()
+    {
+        return percent == 0f;
     }
 }
