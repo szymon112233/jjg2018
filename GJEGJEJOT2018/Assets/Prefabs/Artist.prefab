@@ -177,6 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 986ce107fbc161648baba3b962737a07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BarsPrefab: {fileID: 1681004257420436, guid: 90910580ecfd2334fb7fa912fc593214, type: 2}
   programming:
     downRange: 0
     upRange: 0.1

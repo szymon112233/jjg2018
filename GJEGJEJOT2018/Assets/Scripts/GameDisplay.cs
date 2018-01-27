@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class GameDisplay : MonoBehaviour
 {
+    public const string tagName = "MainCanvas";
+
     public Text GameTitle;
     public Slider ProgrammingBar;
     public Slider ArtBar;

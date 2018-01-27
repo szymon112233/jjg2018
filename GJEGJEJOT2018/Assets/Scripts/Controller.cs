@@ -23,6 +23,14 @@ public class Controller : MonoBehaviour
 
 	private void OnControllerColliderHit(ControllerColliderHit hit)
 	{
+		PickUpGame(hit);
+		hit.gameObject.GetComponent<Rigidbody>().AddForceAtPosition(-hit.normal*1000,hit.point);
+	}
+
+	private void PickUpGame(ControllerColliderHit hit)
+	{
+		if (currGame != null)
+			return;
 		var body = hit.gameObject;
 		if (!body.CompareTag(Game.tagName))
 			return;
