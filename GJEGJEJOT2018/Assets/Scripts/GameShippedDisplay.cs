@@ -75,8 +75,8 @@ public class GameShippedDisplay : MonoBehaviour
                 score = Mathf.RoundToInt(completion * 10);
                 return score + "/10 - IGN";
             case Critics.Eurogamer:
-                if (completion < 5f) return "\"Avoid\" - Eurogamer";
-                else if (completion < 7f) return "\"Recommended\" - Eurogamer";
+                if (completion < 0.5f) return "\"Avoid\" - Eurogamer";
+                else if (completion < 0.7f) return "\"Recommended\" - Eurogamer";
                 else return "\"Essential\" - Eurogamer";
             case Critics.Giantbomb:
                 string stars = "";
