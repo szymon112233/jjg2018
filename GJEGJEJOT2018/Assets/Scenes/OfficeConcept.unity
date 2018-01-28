@@ -868,12 +868,12 @@ Prefab:
     - target: {fileID: 224644062853196734, guid: 7279cd5832e8b244485ea03f0c8f5972,
         type: 2}
       propertyPath: m_SizeDelta.x
-      value: 160
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 224644062853196734, guid: 7279cd5832e8b244485ea03f0c8f5972,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 90
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 224644062853196734, guid: 7279cd5832e8b244485ea03f0c8f5972,
         type: 2}
