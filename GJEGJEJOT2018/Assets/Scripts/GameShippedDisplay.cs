@@ -10,6 +10,8 @@ public class GameShippedDisplay : MonoBehaviour
     public Text EarnedMoney;
     public Canvas Canvas;
 
+    private Color currentGameColor;
+
     private enum Critics { Ign, Gamespot, Totalbiscuit, Polygon, Kotaku }
 
     private void Awake()
@@ -25,6 +27,7 @@ public class GameShippedDisplay : MonoBehaviour
         string criticsMessage = RandomizeScoreText(completion);
         GameTitle.text = title + " has been shipped!";
         GameTitle.color = color;
+        currentGameColor = color;
         GameScore.text = "Critics say: " + criticsMessage;
         EarnedMoney.text = "We made " + (int)earnedMoney + " bucks!";
 
@@ -39,6 +42,7 @@ public class GameShippedDisplay : MonoBehaviour
         string criticsMessage = RandomizeScoreText(completion);
         GameTitle.text = title + " has been shipped!";
         GameTitle.color = color;
+        currentGameColor = color;
         GameScore.text = "Critics say: " + criticsMessage;
         EarnedMoney.text = "We made just $" + (int)earnedMoney + ". Welp. Maybe next time";
 
@@ -53,6 +57,7 @@ public class GameShippedDisplay : MonoBehaviour
         string criticsMessage = RandomizeScoreText(completion);
         GameTitle.text = title + " has failed!";
         GameTitle.color = color;
+        currentGameColor = color;
         GameScore.text = "Critics didn't like this one: " + criticsMessage;
         EarnedMoney.text = "We're filled with grief";
 
@@ -84,11 +89,12 @@ public class GameShippedDisplay : MonoBehaviour
 
     private IEnumerator ShowDisplay()
     {
-        Color color = new Color(1f, 1f, 1f, 0f); 
+        Color color = new Color(1f, 1f, 1f, 0f);
+        Color gameColor = currentGameColor;
         while (color.a < 1f)
         {
             color.a += 0.1f;
-            GameTitle.color = color;
+            GameTitle.color = color * gameColor;
             GameScore.color = color;
             EarnedMoney.color = color;
             yield return new WaitForSeconds(0.03f);
@@ -98,7 +104,7 @@ public class GameShippedDisplay : MonoBehaviour
         while (color.a > 0f)
         {
             color.a -= 0.1f;
-            GameTitle.color = color;
+            GameTitle.color = color * gameColor;
             GameScore.color = color;
             EarnedMoney.color = color;
             yield return new WaitForSeconds(0.03f);
