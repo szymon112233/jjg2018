@@ -6,7 +6,7 @@ public class EndBoredom : StateMachineBehaviour {
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		animator.transform.parent.GetComponent<Employee>().EndBoredom();
+		animator.transform.parent.parent.GetComponentInChildren<Employee>().EndBoredom();
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
