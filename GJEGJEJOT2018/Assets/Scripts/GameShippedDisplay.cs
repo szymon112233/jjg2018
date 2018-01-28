@@ -81,6 +81,7 @@ public class GameShippedDisplay : MonoBehaviour
             case Critics.Giantbomb:
                 string stars = "";
                 score = Mathf.RoundToInt(completion * 5);
+
                 for (int i = 0; i < 5; i++)
                 {
                     if (score > 0)
