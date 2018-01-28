@@ -45,9 +45,9 @@ public class CameraInterpolater : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (!play && !Input.GetButtonDown("Fire3"))
+		if (!play)
 			return;
-		BeginPlay();
+
 
 		elaspedTime += Time.deltaTime / InterpTime;
 
