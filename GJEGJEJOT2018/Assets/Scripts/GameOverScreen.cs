@@ -12,7 +12,7 @@ public class GameOverScreen : MonoBehaviour
     private MoneyManager money;
     private Controller player;
     private GameSpawner spawner;
-    private Canvas environmentCanvas;
+    //private Canvas environmentCanvas;
 
     private void Awake()
     {
@@ -23,7 +23,7 @@ public class GameOverScreen : MonoBehaviour
         money = GameObject.FindObjectOfType<MoneyManager>();
         player = GameObject.FindObjectOfType<Controller>();
         spawner = GameObject.FindObjectOfType<GameSpawner>();
-        environmentCanvas = GameObject.Find("Canvas").GetComponent<Canvas>();
+        //environmentCanvas = GameObject.Find("World UI").GetComponent<Canvas>();
     }
 
     public void ShowGameOverScreen()
@@ -34,7 +34,11 @@ public class GameOverScreen : MonoBehaviour
         player.enabled = false;
         spawner.enabled = false;
         money.enabled = false;
-        environmentCanvas.enabled = false;
+        foreach (GameObject bars in GameObject.FindGameObjectsWithTag("Employee Bars"))
+        {
+            Destroy(bars);
+        }
+        //environmentCanvas.enabled = false;
     }
 
     public void RestartLevel()
