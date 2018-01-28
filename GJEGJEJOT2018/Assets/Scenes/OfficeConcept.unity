@@ -808,6 +808,12 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 189053015}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &208569488 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114310805529637502, guid: e9b249fced6207f44bfdb7ce544720d6,
+    type: 2}
+  m_PrefabInternal: {fileID: 2102550750}
+  m_Script: {fileID: 1392445389, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &309235483
 Prefab:
   m_ObjectHideFlags: 0
@@ -2548,6 +2554,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InterpTime: 5
+  delayTime: 0.1
 --- !u!1 &1198962965
 GameObject:
   m_ObjectHideFlags: 0
@@ -4573,6 +4580,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 114827811348527418, guid: e9b249fced6207f44bfdb7ce544720d6,
+        type: 2}
+      propertyPath: start
+      value: 
+      objectReference: {fileID: 208569488}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e9b249fced6207f44bfdb7ce544720d6, type: 2}
   m_IsPrefabParent: 0
