@@ -1,24 +1,25 @@
 fileFormatVersion: 2
-guid: 4c4070bdc32c9b04eae5887c144a69c3
-timeCreated: 1517065872
+guid: e065e1141aff4ea43b489a5d5ec2b9b1
+timeCreated: 1517149577
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: default
-    100002: //RootNode
-    400000: default
-    400002: //RootNode
-    2100000: mat15
-    2100002: mat16
-    2100004: mat17
-    2100006: mat10
-    2100008: mat24
-    2100010: mat21
-    2100012: defaultMat
-    2300000: default
-    3300000: default
-    4300000: default
+    100000: //RootNode
+    400000: //RootNode
+    2100000: mat20
+    2100002: mat10.001
+    2100004: mat23.001
+    2100006: mat7
+    2100008: mat12.001
+    2100010: mat18
+    2100012: mat21.001
+    2100014: mat19.001
+    2100016: mat14
+    2100018: mat22
+    2300000: //RootNode
+    3300000: //RootNode
+    4300000: stuff
   externalObjects: {}
   materials:
     importMaterials: 1
