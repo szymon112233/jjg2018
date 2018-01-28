@@ -12,6 +12,7 @@ TagManager:
   - CameraStartPos
   - CameraEndPos
   - MovableCamera
+  - Employee Bars
   layers:
   - Default
   - TransparentFX

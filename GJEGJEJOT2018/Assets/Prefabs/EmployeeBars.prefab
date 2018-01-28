@@ -435,7 +435,7 @@ GameObject:
   - component: {fileID: 114944469862749662}
   m_Layer: 5
   m_Name: EmployeeBars
-  m_TagString: Untagged
+  m_TagString: Employee Bars
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
