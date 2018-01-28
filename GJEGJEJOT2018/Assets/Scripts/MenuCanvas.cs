@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MenuCanvas : MonoBehaviour {
-
+	public Button start;
 	// Use this for initialization
 	void Start () {
-		
+		start.Select();
 	}
 	
 	// Update is called once per frame
