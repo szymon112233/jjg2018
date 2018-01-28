@@ -11,12 +11,14 @@ public class Controller : MonoBehaviour
 	private SocketAttacher socketAttacher;
 	private Animator animator;
 	private bool move = true;
+    private AudioSource throwAudio;
 
 	// Use this for initialization
 	void Start()
 	{
 		socketAttacher = GetComponent<SocketAttacher>();
 		animator = GetComponentInChildren<Animator>();
+        throwAudio = GetComponent<AudioSource>();
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -48,6 +50,7 @@ public class Controller : MonoBehaviour
 	private void OnThrowApex()
 	{
 		var game = DetachGame();
+        throwAudio.Play();
 		if (game != null)
 		{
 			var rigid = game.GetComponent<Rigidbody>();
