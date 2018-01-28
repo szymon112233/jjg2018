@@ -41,14 +41,14 @@ public class Employee : MonoBehaviour
             WorkOnGame();
         }
 		else
-		if (productivity%5 < 0.4 && Random.Range(0.0f, 90.0f) > productivity)
+		if (productivity%5 < 0.4f && Random.Range(0.0f, 90.0f) > productivity)
 		{
 			animator.SetTrigger("Bored");
 			EndBoredom();
 		}
 		else
 		{
-			productivity -= Time.deltaTime;
+			productivity -= Time.deltaTime*Random.Range(1f, 3f);
 		}
 	}
 
