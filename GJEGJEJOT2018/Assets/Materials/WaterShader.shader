@@ -1,69 +1,139 @@
 ﻿Shader "Custom/Water Shader"
 {
-    Properties
-    {
-        _MainTex ("Texture", 2D) = "white" {}
-		_Amplitude ("Amplitude", Float) = 1.5
-		_Frequency ("Frequency", Float) = 0.75
-		_OffsetMultiplier ("OffsetMultiplier", Float) = 0.2
-		_TexScale ("_TexScale", Float) = 1.0
-    }
-    SubShader
-    {
-        Pass
-        {
-            // indicate that our pass is the "base" pass in forward
-            // rendering pipeline. It gets ambient and main directional
-            // light data set up; light direction in _WorldSpaceLightPos0
-            // and color in _LightColor0
-            Tags {"LightMode"="ForwardBase"}
-        
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #include "UnityCG.cginc" // for UnityObjectToWorldNormal
-            #include "UnityLightingCommon.cginc" // for _LightColor0
+	Properties
+	{
+		_Color("Color", Color) = (1,0,0,1)
+		_WaveLength("Wave length", Float) = 0.5
+		_WaveHeight("Wave height", Float) = 0.5
+		_WaveSpeed("Wave speed", Float) = 1.0
+		_RandomHeight("Random height", Float) = 0.5
+		_RandomSpeed("Random Speed", Float) = 0.5
+	}
+		SubShader
+	{
 
-            struct v2f
-            {
-                float2 uv : TEXCOORD0;
-                fixed4 diff : COLOR0; // diffuse lighting color
-                float4 vertex : SV_POSITION;
-            };
+		Tags{ "Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent" }
+		Blend SrcAlpha OneMinusSrcAlpha
 
-			float _Amplitude;
-			float _Frequency;
-			float _OffsetMultiplier;
-			float _TexScale;
+		Pass
+	{
 
-            v2f vert (appdata_base v)
-            {
-                v2f o;
-				float4 worldspace = UnityObjectToClipPos(v.vertex);
-				o.vertex = worldspace;
-                o.vertex.y += _Amplitude * sin(6.28 * _Time.y * _Frequency + (worldspace.x * worldspace.z) * _OffsetMultiplier);
-                o.uv = v.texcoord;
-                // get vertex normal in world space
-                half3 worldNormal = UnityObjectToWorldNormal(v.normal);
-                // dot product between normal and light direction for
-                // standard diffuse (Lambert) lighting
-                half nl = max(0, dot(worldNormal, _WorldSpaceLightPos0.xyz));
-                // factor in the light color
-                o.diff = nl * _LightColor0;
-                return o;
-            }
-            
-            sampler2D _MainTex;
+		CGPROGRAM
+#include "UnityCG.cginc"
+#pragma vertex vert
+#pragma geometry geom
+#pragma fragment frag
 
-            fixed4 frag (v2f i) : SV_Target
-            {
-                // sample texture
-                fixed4 col = tex2D(_MainTex, i.uv * _TexScale);
-                // multiply by lighting
-                col *= i.diff;
-                return col;
-            }
-            ENDCG
-        }
-    }
+		float rand(float3 co)
+	{
+		return frac(sin(dot(co.xyz ,float3(12.9898,78.233,45.5432))) * 43758.5453);
+	}
+
+	float rand2(float3 co)
+	{
+		return frac(sin(dot(co.xyz ,float3(19.9128,75.2,34.5122))) * 12765.5213);
+	}
+
+	float _WaveLength;
+	float _WaveHeight;
+	float _WaveSpeed;
+	float _RandomHeight;
+	float _RandomSpeed;
+
+	uniform float4 _LightColor0;
+
+	uniform float4 _Color;
+
+	struct v2g
+	{
+		float4 pos : SV_POSITION;
+		float3 norm : NORMAL;
+		float2 uv : TEXCOORD0;
+	};
+
+	struct g2f
+	{
+		float4 pos : SV_POSITION;
+		float3 norm : NORMAL;
+		float2 uv : TEXCOORD0;
+		float3 diffuseColor : TEXCOORD1;
+	};
+
+	v2g vert(appdata_full v)
+	{
+		float3 v0 = mul(unity_ObjectToWorld, v.vertex).xyz;
+
+		float phase0 = (_WaveHeight)* sin((_Time[1] * _WaveSpeed) + (v0.x * _WaveLength) + (v0.z * _WaveLength) + rand2(v0.xzz));
+		float phase0_1 = (_RandomHeight)*sin(cos(rand(v0.xzz) * _RandomHeight * cos(_Time[1] * _RandomSpeed * sin(rand(v0.xxz)))));
+
+		v0.y += phase0 + phase0_1;
+
+		v.vertex.xyz = mul((float3x3)unity_WorldToObject, v0);
+
+		v2g OUT;
+		OUT.pos = v.vertex;
+		OUT.norm = v.normal;
+		OUT.uv = v.texcoord;
+		return OUT;
+	}
+
+	[maxvertexcount(3)]
+	void geom(triangle v2g IN[3], inout TriangleStream<g2f> triStream)
+	{
+		float3 v0 = IN[0].pos.xyz;
+		float3 v1 = IN[1].pos.xyz;
+		float3 v2 = IN[2].pos.xyz;
+
+		float3 centerPos = (v0 + v1 + v2) / 3.0;
+
+		float3 vn = normalize(cross(v1 - v0, v2 - v0));
+
+		float4x4 modelMatrix = unity_ObjectToWorld;
+		float4x4 modelMatrixInverse = unity_WorldToObject;
+
+		float3 normalDirection = normalize(
+			mul(float4(vn, 0.0), modelMatrixInverse).xyz);
+		float3 viewDirection = normalize(_WorldSpaceCameraPos
+			- mul(modelMatrix, float4(centerPos, 0.0)).xyz);
+		float3 lightDirection = normalize(_WorldSpaceLightPos0.xyz);
+		float attenuation = 1.0;
+
+		float3 ambientLighting =
+			UNITY_LIGHTMODEL_AMBIENT.rgb * _Color.rgb;
+
+		float3 diffuseReflection =
+			attenuation * _LightColor0.rgb * _Color.rgb
+			* max(0.0, dot(normalDirection, lightDirection));
+
+
+		g2f OUT;
+		OUT.pos = UnityObjectToClipPos(IN[0].pos);
+		OUT.norm = vn;
+		OUT.uv = IN[0].uv;
+		OUT.diffuseColor = ambientLighting + diffuseReflection;
+		triStream.Append(OUT);
+
+		OUT.pos = UnityObjectToClipPos(IN[1].pos);
+		OUT.norm = vn;
+		OUT.uv = IN[1].uv;
+		OUT.diffuseColor = ambientLighting + diffuseReflection;
+		triStream.Append(OUT);
+
+		OUT.pos = UnityObjectToClipPos(IN[2].pos);
+		OUT.norm = vn;
+		OUT.uv = IN[2].uv;
+		OUT.diffuseColor = ambientLighting + diffuseReflection;
+		triStream.Append(OUT);
+
+	}
+
+	half4 frag(g2f IN) : COLOR
+	{
+		return float4(IN.diffuseColor, 1.0);
+	}
+
+		ENDCG
+
+	}
+	}
 }
