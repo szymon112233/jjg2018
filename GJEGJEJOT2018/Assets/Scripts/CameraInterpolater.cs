@@ -14,7 +14,9 @@ public class CameraInterpolater : MonoBehaviour
 	private GameSpawner spawner;
 	private Canvas canvas;
 	private MenuCanvas menu;
-	public float InterpTime = 5f;
+	public float InterpTime = 3f;
+	public float delayTime = 0.1f;
+	private float delayParam;
 	private float elaspedTime = 0;
 	bool play = false;
 	bool credits = false;
@@ -34,6 +36,7 @@ public class CameraInterpolater : MonoBehaviour
 		spawner = GameObject.FindObjectOfType<GameSpawner>();
 		canvas = GameObject.FindGameObjectWithTag("MainCanvas").GetComponent<Canvas>();
 		menu = GameObject.FindObjectOfType<MenuCanvas>();
+		delayParam = delayTime / InterpTime;
 	}
 
 	public void ShowCredits()
@@ -64,11 +67,11 @@ public class CameraInterpolater : MonoBehaviour
 		{
 			elaspedTime += Time.deltaTime / InterpTime;
 
-			float effectiveTime = elaspedTime - 0.1f;
+			float effectiveTime = elaspedTime - delayParam;
 			camera.transform.position = Vector3.Lerp(creditPos.position, startPos.position, effectiveTime);
 			camera.transform.rotation = Quaternion.Slerp(creditPos.rotation, startPos.rotation, effectiveTime);
 
-			if (effectiveTime > 1.10f)
+			if (effectiveTime > 1 + delayParam)
 			{
 				backCredits = false;
 				elaspedTime = 0;
@@ -79,14 +82,14 @@ public class CameraInterpolater : MonoBehaviour
 
 		if (credits)
 		{
-			if (elaspedTime - 0.1f > 1.10f && Input.GetButtonDown("Cancel"))
+			if (elaspedTime - delayParam > 1 && Input.GetButtonDown("Cancel"))
 			{
 				ShowReturnButton();
 				return;
 			}
 			elaspedTime += Time.deltaTime / InterpTime;
 
-			float effectiveTime = elaspedTime - 0.1f;
+			float effectiveTime = elaspedTime - delayParam;
 			camera.transform.position = Vector3.Lerp(startPos.position, creditPos.position, effectiveTime);
 			camera.transform.rotation = Quaternion.Slerp(startPos.rotation, creditPos.rotation, effectiveTime);
 
@@ -98,11 +101,11 @@ public class CameraInterpolater : MonoBehaviour
 		{
 			elaspedTime += Time.deltaTime / InterpTime;
 
-			float effectiveTime = elaspedTime - 0.1f;
+			float effectiveTime = elaspedTime - delayParam;
 			camera.transform.position = Vector3.Lerp(startPos.position, endPos.position, effectiveTime);
 			camera.transform.rotation = Quaternion.Slerp(startPos.rotation, endPos.rotation, effectiveTime * 3f);
 
-			if (effectiveTime > 1.10f)
+			if (effectiveTime > 1+ delayParam)
 			{
 				StartGsme();
 			}
