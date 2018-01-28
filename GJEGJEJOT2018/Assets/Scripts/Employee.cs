@@ -15,7 +15,8 @@ public class Employee : MonoBehaviour
 
     [SerializeField] private GameObject BarsPrefab;
 
-    [SerializeField] protected Ability programming;
+
+	[SerializeField] protected Ability programming;
     [SerializeField] protected Ability music;
     [SerializeField] protected Ability art;
     [SerializeField] protected Ability testing;
@@ -43,7 +44,7 @@ public class Employee : MonoBehaviour
 		if (productivity%5 < 0.4 && Random.Range(0.0f, 90.0f) > productivity)
 		{
 			animator.SetTrigger("Bored");
-			productivity = 100;
+			EndBoredom();
 		}
 		else
 		{
@@ -59,10 +60,16 @@ public class Employee : MonoBehaviour
         {
 			animator.SetTrigger("Finished");
             RemoveGame();
-        }
-    }
+			EndBoredom();
 
-    public virtual void Build()
+		}
+	}
+	public void EndBoredom()
+	{
+			productivity = 100;
+	}
+
+	public virtual void Build()
     {
         bars = Instantiate(BarsPrefab, MainCanvas.transform).GetComponent<BarsController>();
         bars.targetCanvas = MainCanvas;
