@@ -96,7 +96,7 @@ public class GameShippedDisplay : MonoBehaviour
                 return stars + " - GameBomb";
             case Critics.Totalbiscuit:
                 if (completion < 0.5f) return "\"No FOV slider, locked to 30FPS\" - TotalBiscuit";
-                else if (completion < 0.7f) return "\"Not to shabby\" - TotalBiscuit";
+                else if (completion < 0.7f) return "\"Not too shabby\" - TotalBiscuit";
                 else return "\"Runs great on four GTX 1080 TIs\" - TotalBiscuit";
             case Critics.Steam:
                 if (completion < 0.5f) return "\"[Not Recommended] Didn't even play it\" - a Steam Reviewer";
