@@ -20,11 +20,13 @@ public class Employee : MonoBehaviour
     [SerializeField] protected Ability art;
     [SerializeField] protected Ability testing;
 
+	private Animator animator;
     private BarsController bars;
 
-    private Game _game;
+	private Game _game;
     private TaskEnum _gameTask;
     private Ability _currAbility;
+	private float productivity = 100;
 
     private void Awake()
     {
@@ -37,7 +39,17 @@ public class Employee : MonoBehaviour
         {
             WorkOnGame();
         }
-    }
+		else
+		if (productivity%5 < 0.4 && Random.Range(0.0f, 90.0f) > productivity)
+		{
+			animator.SetTrigger("Bored");
+			productivity = 100;
+		}
+		else
+		{
+			productivity -= Time.deltaTime;
+		}
+	}
 
     protected virtual void WorkOnGame()
     {
@@ -45,6 +57,7 @@ public class Employee : MonoBehaviour
 
         if (isEnd)
         {
+			animator.SetTrigger("Finished");
             RemoveGame();
         }
     }
@@ -56,6 +69,7 @@ public class Employee : MonoBehaviour
         bars.objectToFollow = this.transform;
         for (int i = 0; i <= (int)TaskEnum.TESTING; i++)
             GenerateValue((TaskEnum)i);
+		animator = transform.parent.GetComponentInChildren<Animator>();
 	}
 
     private void GenerateValue(TaskEnum task)
@@ -71,7 +85,7 @@ public class Employee : MonoBehaviour
         {
             Debug.Log("GAME RECEIVED: " + collision.gameObject.GetComponent<Game>().Name);
             RemoveGame();
-            AddGame(collision.gameObject.GetComponent<Game>());
+			AddGame(collision.gameObject.GetComponent<Game>());
         }
     }
 
@@ -81,6 +95,9 @@ public class Employee : MonoBehaviour
         _currAbility = GetAbility(game.CurrTask);
 		if (_game)
 			GetComponent<SocketAttacher>().AttachToGameSocket(_game);
+		if (_currAbility.Value < 0.3f)
+			animator.SetBool("Unhappy",true);
+		animator.SetBool("Working", true);
 	}
 
     public void RemoveGame()
@@ -93,7 +110,10 @@ public class Employee : MonoBehaviour
 		}
         _game = null;
         _currAbility = null;
-    }
+		animator.SetBool("Unhappy", false);
+		animator.SetBool("Working", false);
+
+	}
 
     private Ability GetAbility(TaskEnum task)
     {
