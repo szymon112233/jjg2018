@@ -13,6 +13,7 @@ public class GameOverScreen : MonoBehaviour
     private Controller player;
     private GameSpawner spawner;
     //private Canvas environmentCanvas;
+    private Button button;
 
     private void Awake()
     {
@@ -23,11 +24,14 @@ public class GameOverScreen : MonoBehaviour
         money = GameObject.FindObjectOfType<MoneyManager>();
         player = GameObject.FindObjectOfType<Controller>();
         spawner = GameObject.FindObjectOfType<GameSpawner>();
+
+        button = GetComponentInChildren<Button>();
         //environmentCanvas = GameObject.Find("World UI").GetComponent<Canvas>();
     }
 
     public void ShowGameOverScreen()
     {
+        button.Select();
         //_moneyText.text = ""
         _canvas.enabled = true;
 

@@ -13,6 +13,7 @@ public class WinScreen : MonoBehaviour
     private Controller player;
     private GameSpawner spawner;
     //private Canvas environmentCanvas;
+    private Button button;
 
     private void Awake()
     {
@@ -23,11 +24,14 @@ public class WinScreen : MonoBehaviour
         money = GameObject.FindObjectOfType<MoneyManager>();
         player = GameObject.FindObjectOfType<Controller>();
         spawner = GameObject.FindObjectOfType<GameSpawner>();
+
+        button = GetComponentInChildren<Button>();
         //environmentCanvas = GameObject.Find("World UI").GetComponent<Canvas>();
     }
 
     public void ShowWinScreen(float moneyToWin)
     {
+        button.Select();
         _moneyText.text = "You made $" + (int)moneyToWin;
         _canvas.enabled = true;
 
