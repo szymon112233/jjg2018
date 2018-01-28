@@ -14,9 +14,11 @@ public class Employee : MonoBehaviour
     }
 
     [SerializeField] private GameObject BarsPrefab;
+    [SerializeField] private AudioSource whoopieAudio;
+    [SerializeField] private AudioSource typingAudio;
 
 
-	[SerializeField] protected Ability programming;
+    [SerializeField] protected Ability programming;
     [SerializeField] protected Ability music;
     [SerializeField] protected Ability art;
     [SerializeField] protected Ability testing;
@@ -55,10 +57,18 @@ public class Employee : MonoBehaviour
     protected virtual void WorkOnGame()
     {
         bool isEnd = _game.WorkOn(_currAbility.Value, bars.progressBar);
+        if (!typingAudio.isPlaying)
+        {
+            float randomDelay = Random.value;
+            typingAudio.PlayDelayed(randomDelay);
+        }
+            
 
         if (isEnd)
         {
+            typingAudio.Stop();
 			animator.SetTrigger("Finished");
+            whoopieAudio.PlayDelayed(0.5f);
             RemoveGame();
 			EndBoredom();
 
