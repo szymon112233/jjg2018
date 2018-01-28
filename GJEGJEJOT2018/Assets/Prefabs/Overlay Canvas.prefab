@@ -1619,6 +1619,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoneyText: {fileID: 114111220764177592}
+  goodColor: {r: 0.33975658, g: 1, b: 0.31617647, a: 1}
+  badColor: {r: 1, g: 0.31617647, b: 0.31617647, a: 1}
 --- !u!114 &114434698890278238
 MonoBehaviour:
   m_ObjectHideFlags: 1
