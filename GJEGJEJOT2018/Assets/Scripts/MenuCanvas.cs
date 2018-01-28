@@ -11,15 +11,20 @@ public class MenuCanvas : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
+
 	}
 
-    public void Hide()
-    {
-        gameObject.SetActive(false);
-    }
+	public void Hide()
+	{
+		gameObject.SetActive(false);
+	}
 
-    public void Exit()
+	public void Show()
+	{
+		gameObject.SetActive(true);
+	}
+
+	public void Exit()
     {
         Application.Quit();
     }
