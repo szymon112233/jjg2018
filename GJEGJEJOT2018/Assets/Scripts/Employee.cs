@@ -68,7 +68,8 @@ public class Employee : MonoBehaviour
         {
             typingAudio.Stop();
 			animator.SetTrigger("Finished");
-            whoopieAudio.PlayDelayed(0.5f);
+            if (!whoopieAudio.isPlaying)
+                whoopieAudio.PlayDelayed(0.5f);
             RemoveGame();
 			EndBoredom();
 
