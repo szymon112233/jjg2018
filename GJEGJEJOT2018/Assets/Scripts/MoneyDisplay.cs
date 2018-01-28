@@ -17,4 +17,9 @@ public class MoneyDisplay : MonoBehaviour
     {
         MoneyText.text = "$" + (int)value;
     }
+
+    public void HideText()
+    {
+        MoneyText.text = "";
+    }
 }

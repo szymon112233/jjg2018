@@ -597,6 +597,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224977739996034952}
   - component: {fileID: 223776300249579538}
+  - component: {fileID: 114150509221615736}
   m_Layer: 5
   m_Name: Game Over Screen
   m_TagString: Untagged
@@ -1144,6 +1145,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114150509221615736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1754534383299620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a19199c0fc3222142b30f8812d6cb0c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114153839076072220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1224,12 +1236,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1177882923021490}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4bdad9963b197d04cbc0f6000405535f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Money: 10000
+  MoneyToWin: 100000
+  MoneyToLose: -10000
   MoneyPerShippedGame: 5000
   LostMoneyPerSecond: 100
   LoseMoneyTimer: 0.1
@@ -2495,7 +2509,7 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1177882923021490}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
@@ -2555,7 +2569,7 @@ Canvas:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1882452429257426}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_RenderMode: 2
   m_Camera: {fileID: 0}
