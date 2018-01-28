@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameOverScreen : MonoBehaviour
+public class WinScreen : MonoBehaviour
 {
     private Canvas _canvas;
 
@@ -13,7 +13,7 @@ public class GameOverScreen : MonoBehaviour
         _canvas.enabled = false;
     }
 
-    public void ShowGameOverScreen()
+    public void ShowWinScreen()
     {
         _canvas.enabled = true;
     }
