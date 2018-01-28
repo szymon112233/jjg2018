@@ -10,7 +10,9 @@ public class GameShippedDisplay : MonoBehaviour
     public Text EarnedMoney;
     public Canvas Canvas;
 
-    private enum Critics { Ign, Gamespot, Totalbiscuit, Polygon, Kotaku }
+    private Color currentGameColor;
+
+    private enum Critics { Ign, Eurogamer, Giantbomb, Totalbiscuit, Steam }
 
     private void Awake()
     {
@@ -25,7 +27,8 @@ public class GameShippedDisplay : MonoBehaviour
         string criticsMessage = RandomizeScoreText(completion);
         GameTitle.text = title + " has been shipped!";
         GameTitle.color = color;
-        GameScore.text = "Critics say: " + criticsMessage;
+        currentGameColor = color;
+        GameScore.text = criticsMessage;
         EarnedMoney.text = "We made " + (int)earnedMoney + " bucks!";
 
         StartCoroutine(ShowDisplay());
@@ -39,7 +42,8 @@ public class GameShippedDisplay : MonoBehaviour
         string criticsMessage = RandomizeScoreText(completion);
         GameTitle.text = title + " has been shipped!";
         GameTitle.color = color;
-        GameScore.text = "Critics say: " + criticsMessage;
+        currentGameColor = color;
+        GameScore.text = criticsMessage;
         EarnedMoney.text = "We made just $" + (int)earnedMoney + ". Welp. Maybe next time";
 
         StartCoroutine(ShowDisplay());
@@ -53,7 +57,8 @@ public class GameShippedDisplay : MonoBehaviour
         string criticsMessage = RandomizeScoreText(completion);
         GameTitle.text = title + " has failed!";
         GameTitle.color = color;
-        GameScore.text = "Critics didn't like this one: " + criticsMessage;
+        currentGameColor = color;
+        GameScore.text = criticsMessage;
         EarnedMoney.text = "We're filled with grief";
 
         StartCoroutine(ShowDisplay());
@@ -62,21 +67,41 @@ public class GameShippedDisplay : MonoBehaviour
     private string RandomizeScoreText(float completion)
     {
         // TODO: Replace placeholders, set correct range
-        Critics critic = (Critics)Random.Range(0, 0);
-
+        Critics critic = (Critics)Random.Range(0, 4);
+        int score = 0;
         switch(critic)
         {
             case Critics.Ign:
-                int score = Mathf.RoundToInt(completion * 10);
+                score = Mathf.RoundToInt(completion * 10);
                 return score + "/10 - IGN";
-            case Critics.Gamespot:
-                return "placeholder";
+            case Critics.Eurogamer:
+                if (completion < 5f) return "\"Avoid\" - Eurogamer";
+                else if (completion < 7f) return "\"Recommended\" - Eurogamer";
+                else return "\"Essential\" - Eurogamer";
+            case Critics.Giantbomb:
+                string stars = "";
+                score = Mathf.RoundToInt(completion * 5);
+                for (int i = 0; i < 5; i++)
+                {
+                    if (score > 0)
+                    {
+                        stars += "★";
+                        score--;
+                    }
+                    else
+                    {
+                        stars += "☆";
+                    }
+                }
+                return stars + " - GameBomb";
             case Critics.Totalbiscuit:
-                return "placeholder";
-            case Critics.Polygon:
-                return "placeholder";
-            case Critics.Kotaku:
-                return "placeholder";
+                if (completion < 0.5f) return "\"No FOV slider, locked to 30FPS\" - TotalBiscuit";
+                else if (completion < 0.7f) return "\"Not too shabby\" - TotalBiscuit";
+                else return "\"Runs great on four GTX 1080 TIs\" - TotalBiscuit";
+            case Critics.Steam:
+                if (completion < 0.5f) return "\"[Not Recommended] Didn't even play it\" - a Steam Reviewer";
+                else if (completion < 0.7f) return "\"[Recommended] Meh\" - a Steam Reviewer";
+                else return "\"[Recommended] People who rate it negatively are idiots\" - a Steam Reviewer";
             default:
                 return "welp";
         }
@@ -84,11 +109,12 @@ public class GameShippedDisplay : MonoBehaviour
 
     private IEnumerator ShowDisplay()
     {
-        Color color = new Color(1f, 1f, 1f, 0f); 
+        Color color = new Color(1f, 1f, 1f, 0f);
+        Color gameColor = currentGameColor;
         while (color.a < 1f)
         {
             color.a += 0.1f;
-            GameTitle.color = color;
+            GameTitle.color = color * gameColor;
             GameScore.color = color;
             EarnedMoney.color = color;
             yield return new WaitForSeconds(0.03f);
@@ -98,7 +124,7 @@ public class GameShippedDisplay : MonoBehaviour
         while (color.a > 0f)
         {
             color.a -= 0.1f;
-            GameTitle.color = color;
+            GameTitle.color = color * gameColor;
             GameScore.color = color;
             EarnedMoney.color = color;
             yield return new WaitForSeconds(0.03f);
