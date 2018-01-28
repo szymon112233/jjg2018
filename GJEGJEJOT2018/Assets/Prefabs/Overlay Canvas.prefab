@@ -1335,7 +1335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Try Again
+  m_Text: Main Menu
 --- !u!114 &114220277339567718
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1525,7 +1525,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Try Again
+  m_Text: Main Menu
 --- !u!114 &114402549048737254
 MonoBehaviour:
   m_ObjectHideFlags: 1
