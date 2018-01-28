@@ -9,6 +9,9 @@ TagManager:
   - GameSocket
   - MainCanvas
   - Water
+  - CameraStartPos
+  - CameraEndPos
+  - MovableCamera
   layers:
   - Default
   - TransparentFX

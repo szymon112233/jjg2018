@@ -23,6 +23,9 @@ public class
 		var shipper = GameObject.FindObjectOfType<GameShipper>();
 		if (shipper != null)
 			shipper.Shipped.AddListener(OnGameShipped);
+		var water = GameObject.FindObjectOfType<DestroyOnWater>();
+		if (water != null)
+			water.Destroyed.AddListener(OnGameShipped);
 	}
 
 	private void Update()
