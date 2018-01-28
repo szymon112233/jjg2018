@@ -1267,7 +1267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Money: 10000
-  MoneyToWin: 100000
+  MoneyToWin: 20000
   MoneyToLose: 0
   MoneyPerShippedGame: 5000
   LostMoneyPerSecond: 100

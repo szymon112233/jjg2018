@@ -770,7 +770,7 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224138258619004830, guid: fce51c03cbefd42479d8fdb71ed3802c,
+    - target: {fileID: 224257415432944288, guid: fce51c03cbefd42479d8fdb71ed3802c,
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
@@ -780,40 +780,15 @@ Prefab:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 224257415432944288, guid: fce51c03cbefd42479d8fdb71ed3802c,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 224452619801075810, guid: fce51c03cbefd42479d8fdb71ed3802c,
         type: 2}
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114179014733148582, guid: fce51c03cbefd42479d8fdb71ed3802c,
+    - target: {fileID: 224138258619004830, guid: fce51c03cbefd42479d8fdb71ed3802c,
         type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 223357196252207448, guid: fce51c03cbefd42479d8fdb71ed3802c,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114664902705895996, guid: fce51c03cbefd42479d8fdb71ed3802c,
-        type: 2}
-      propertyPath: m_Enabled
+      propertyPath: m_AnchorMax.y
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114923337211436694, guid: fce51c03cbefd42479d8fdb71ed3802c,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114179014733148582, guid: fce51c03cbefd42479d8fdb71ed3802c,
-        type: 2}
-      propertyPath: MoneyToLose
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fce51c03cbefd42479d8fdb71ed3802c, type: 2}
