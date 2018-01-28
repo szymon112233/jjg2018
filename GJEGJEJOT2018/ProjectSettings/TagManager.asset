@@ -13,6 +13,7 @@ TagManager:
   - CameraEndPos
   - MovableCamera
   - Employee Bars
+  - CameraCreditsPos
   layers:
   - Default
   - TransparentFX
